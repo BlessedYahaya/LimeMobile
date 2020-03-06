@@ -3,6 +3,10 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:lime_mobile_app/components/button.dart';
+import 'package:lime_mobile_app/components/card.dart';
+import 'package:lime_mobile_app/components/scaffold.dart';
+import 'package:lime_mobile_app/models/folder.dart';
 import 'package:lime_mobile_app/models/store.dart';
 import 'package:lime_mobile_app/values/theme.dart';
 import 'package:provider/provider.dart';
@@ -154,9 +158,68 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: Center(),
+    return LScaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.search), onPressed: () {})
+        ],
+      ),
+      body: CustomScrollView(
+        physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        slivers: <Widget>[
+          SliverList(
+            delegate: SliverChildListDelegate(<Widget>[
+              Column(
+                children: <Widget>[
+                  LMiniButton('Mini Button', onPressed: null),
+                  LMiniButton('Mini Button', onPressed: () {}),
+                  LMiniButton(
+                    'Mini Button',
+                    onPressed: null,
+                    icon: Icon(Icons.add, size: 16),
+                  ),
+                  LMiniButton(
+                    'Mini Button',
+                    onPressed: () {},
+                    icon: Icon(Icons.add, size: 16),
+                  ),
+                  LMiniFlatButton('Mini Flat Button', onPressed: null),
+                  LMiniFlatButton('Mini Flat Button', onPressed: () {}),
+                  LCard(child: Text('Plain Card')),
+                  LFolderCard(FolderModel(label: 'SAPS Project'),
+                      context: context),
+                  LButtonCard(text: 'SAPS Project', context: context),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Expanded(
+                        child: LFolderCard(
+                          FolderModel(label: 'SAPS Project'),
+                          context: context,
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            LButtonCard(
+                              text: 'SAPS Project',
+                              context: context,
+                              leading: Icon(Icons.add, size: 16),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ]),
+          ),
+        ],
+      ),
     );
   }
 }

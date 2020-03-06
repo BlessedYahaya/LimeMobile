@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lime_mobile_app/utils.dart';
 
-class TLNav extends StatefulWidget {
+class LNav extends StatefulWidget {
   /// Cupertino-specific options
   final Widget leading;
   final bool automaticallyImplyLeading;
@@ -39,7 +39,7 @@ class TLNav extends StatefulWidget {
   /// general options
   final Color backgroundColor;
 
-  TLNav({
+  LNav({
     Key key,
     @required this.items,
     this.leading,
@@ -72,10 +72,10 @@ class TLNav extends StatefulWidget {
   });
 
   @override
-  _TLNavState createState() => _TLNavState();
+  _LNavState createState() => _LNavState();
 }
 
-class _TLNavState extends State<TLNav> {
+class _LNavState extends State<LNav> {
   @override
   Widget build(BuildContext context) {
     if (platform() == SystemPlatform.apple) return CupertinoNavigationBar();

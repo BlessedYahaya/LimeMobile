@@ -5,14 +5,14 @@ import 'package:lime_mobile_app/values/colors.dart';
 
 enum ButtonType { primary, accent, secondary, success }
 
-class TLRaisedButton extends StatefulWidget {
+class LRaisedButton extends StatefulWidget {
   final String text;
   final ButtonType type;
   final VoidCallback onPressed;
   final EdgeInsets padding;
   final double elevation;
 
-  const TLRaisedButton(
+  const LRaisedButton(
     this.text, {
     Key key,
     @required this.onPressed,
@@ -22,10 +22,10 @@ class TLRaisedButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _TLRaisedButtonState createState() => _TLRaisedButtonState();
+  _LRaisedButtonState createState() => _LRaisedButtonState();
 }
 
-class _TLRaisedButtonState extends State<TLRaisedButton> {
+class _LRaisedButtonState extends State<LRaisedButton> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -42,6 +42,7 @@ class _TLRaisedButtonState extends State<TLRaisedButton> {
           color: getColor(),
           padding: widget.padding,
           disabledColor: getColor().withOpacity(0.3),
+          highlightColor: getColor().withOpacity(0.5),
           elevation: widget.onPressed == null
               ? 0
               : widget.type == ButtonType.secondary ? 0 : widget.elevation,
@@ -85,23 +86,25 @@ class _TLRaisedButtonState extends State<TLRaisedButton> {
   }
 }
 
-class TLMiniButton extends StatefulWidget {
+class LMiniButton extends StatefulWidget {
   final String text;
   final ButtonType type;
+  final Widget icon;
   final VoidCallback onPressed;
 
-  const TLMiniButton(
+  const LMiniButton(
     this.text, {
     Key key,
+    this.icon,
     @required this.onPressed,
     this.type = ButtonType.primary,
   }) : super(key: key);
 
   @override
-  _TLMiniButtonState createState() => _TLMiniButtonState();
+  _LMiniButtonState createState() => _LMiniButtonState();
 }
 
-class _TLMiniButtonState extends State<TLMiniButton> {
+class _LMiniButtonState extends State<LMiniButton> {
   final double _elevation = 8.0;
 
   @override
@@ -116,10 +119,22 @@ class _TLMiniButtonState extends State<TLMiniButton> {
         margin:
             EdgeInsets.symmetric(horizontal: _elevation, vertical: _elevation),
         child: FlatButton(
-          child: Text(widget.text),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              if (widget.icon != null) ...[
+                widget.icon,
+                const SizedBox(width: 8.0),
+              ],
+              Text(widget.text),
+            ],
+          ),
           color: getColor(),
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
           disabledColor: getColor().withOpacity(0.3),
+          highlightColor: getColor().withOpacity(0.5),
           onPressed: widget.onPressed,
         ),
       ),
@@ -133,7 +148,18 @@ class _TLMiniButtonState extends State<TLMiniButton> {
             borderRadius: BorderRadius.circular(22.0),
           ),
           child: CupertinoButton(
-            child: Text(widget.text),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                if (widget.icon != null) ...[
+                  widget.icon,
+                  const SizedBox(width: 8.0),
+                ],
+                Text(widget.text),
+              ],
+            ),
             color: getColor(),
             minSize: 32,
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
@@ -156,13 +182,90 @@ class _TLMiniButtonState extends State<TLMiniButton> {
   }
 }
 
-class TLFlatButton extends StatefulWidget {
+class LMiniFlatButton extends StatefulWidget {
+  final String text;
+  final ButtonType type;
+  final VoidCallback onPressed;
+
+  const LMiniFlatButton(
+    this.text, {
+    Key key,
+    @required this.onPressed,
+    this.type = ButtonType.primary,
+  }) : super(key: key);
+
+  @override
+  _LMiniFlatButtonState createState() => _LMiniFlatButtonState();
+}
+
+class _LMiniFlatButtonState extends State<LMiniFlatButton> {
+  final double _elevation = 8.0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return platformWidget(
+      android: Container(
+        margin:
+            EdgeInsets.symmetric(horizontal: _elevation, vertical: _elevation),
+        child: FlatButton(
+          child: Text(
+            widget.text,
+            style: TextStyle(decoration: TextDecoration.underline),
+          ),
+          color: Colors.transparent,
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+          disabledColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          onPressed: widget.onPressed,
+        ),
+      ),
+      ios: Container(
+        margin: EdgeInsets.symmetric(horizontal: _elevation, vertical: 0),
+        child: Material(
+          color: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22.0),
+          ),
+          child: CupertinoButton(
+            child: Text(
+              widget.text,
+              style: TextStyle(decoration: TextDecoration.underline),
+            ),
+            color: Colors.transparent,
+            minSize: 32,
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+            borderRadius: BorderRadius.circular(22.0),
+            onPressed: widget.onPressed,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Color getColor() {
+    switch (widget.type) {
+      case ButtonType.success:
+      case ButtonType.accent:
+      case ButtonType.secondary:
+      default:
+        return LColors.primaryColor;
+    }
+  }
+}
+
+class LFlatButton extends StatefulWidget {
   final String text;
   final ButtonType type;
   final VoidCallback onPressed;
   final EdgeInsets padding;
 
-  const TLFlatButton(
+  const LFlatButton(
     this.text, {
     Key key,
     @required this.onPressed,
@@ -171,10 +274,10 @@ class TLFlatButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _TLFlatButtonState createState() => _TLFlatButtonState();
+  _LFlatButtonState createState() => _LFlatButtonState();
 }
 
-class _TLFlatButtonState extends State<TLFlatButton> {
+class _LFlatButtonState extends State<LFlatButton> {
   final double _elevation = 8.0;
   TextStyle textStyle;
 
@@ -194,6 +297,7 @@ class _TLFlatButtonState extends State<TLFlatButton> {
           child: Text(widget.text, style: textStyle),
           color: Colors.transparent,
           padding: widget.padding,
+          highlightColor: getColor().withOpacity(0.2),
           onPressed: widget.onPressed,
         ),
       ),

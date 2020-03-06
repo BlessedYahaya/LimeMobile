@@ -4,7 +4,13 @@ import 'package:lime_mobile_app/values/strings.dart';
 
 ThemeData baseTheme(BuildContext context) => ThemeData(
       fontFamily: Strings.app.font,
-      buttonTheme: ButtonThemeData(shape: StadiumBorder()),
+      buttonTheme: ButtonThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(6),
+          ),
+        ),
+      ),
       primarySwatch: LColors.primarySwatch,
       cardTheme: CardTheme(
         margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
@@ -34,23 +40,19 @@ ThemeData baseTheme(BuildContext context) => ThemeData(
 ThemeData theme(BuildContext context) => baseTheme(context).copyWith(
       brightness: Brightness.light,
       primaryColor: LColors.primaryColor,
-      iconTheme: IconThemeData(color: Colors.black),
-      primaryIconTheme: IconThemeData(color: Colors.black),
+      highlightColor: Colors.blue,
       appBarTheme: AppBarTheme.of(context).copyWith(
-        color: Colors.white,
         textTheme: TextTheme(
-          headline6: TextStyle(color: Colors.black, fontSize: 20),
+          headline6: TextStyle(color: Colors.white, fontSize: 20),
         ),
-        iconTheme: IconThemeData(color: Colors.black),
-        actionsIconTheme: IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: Colors.white),
+        actionsIconTheme: IconThemeData(color: Colors.white),
       ),
     );
 
 ThemeData darkTheme(BuildContext context) => baseTheme(context).copyWith(
       brightness: Brightness.dark,
       primaryColor: LColorsDark.primaryLightColor,
-      iconTheme: IconThemeData(color: Colors.white),
-      primaryIconTheme: IconThemeData(color: Colors.white),
       appBarTheme: AppBarTheme.of(context).copyWith(
         color: Colors.white,
         textTheme: TextTheme(

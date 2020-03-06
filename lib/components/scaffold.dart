@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lime_mobile_app/utils.dart';
 import 'package:lime_mobile_app/values/colors.dart';
 
-class TLScaffold extends StatelessWidget {
+class LScaffold extends StatelessWidget {
   /// Cupertino-specific options
   final ObstructingPreferredSizeWidget navigationBar;
 
@@ -35,7 +35,7 @@ class TLScaffold extends StatelessWidget {
   final bool bottom;
   final EdgeInsets minimum;
 
-  const TLScaffold({
+  const LScaffold({
     Key key,
     this.navigationBar,
     this.backgroundColor,
@@ -108,7 +108,7 @@ class TLScaffold extends StatelessWidget {
   }
 }
 
-class TLTabScaffold extends TLScaffold {
+class TLTabScaffold extends LScaffold {
   /// Cupertino-specific options
   final CupertinoTabBar tabBar;
   final CupertinoTabController controller;
