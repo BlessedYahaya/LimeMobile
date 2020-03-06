@@ -4,7 +4,20 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+use this generate json serializable classes
+
+```bash
+flutter pub run build_runner build
+```
+or
+```bash
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+### Run Integration test (requires device / emulator)
+```bash
+flutter drive --target=test_driver/app.dart
+```
 
 A few resources to get you started if this is your first Flutter project:
 
