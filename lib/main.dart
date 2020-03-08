@@ -6,8 +6,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lime_mobile_app/components/button.dart';
 import 'package:lime_mobile_app/components/card.dart';
 import 'package:lime_mobile_app/components/scaffold.dart';
-import 'package:lime_mobile_app/models/folder.dart';
+import 'package:lime_mobile_app/models/project.dart';
 import 'package:lime_mobile_app/models/store.dart';
+import 'package:lime_mobile_app/values/colors.dart';
+import 'package:lime_mobile_app/values/strings.dart';
 import 'package:lime_mobile_app/values/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry/sentry.dart';
@@ -156,6 +158,10 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  bool _checked = false;
+
+  bool get checked => _checked;
+
   @override
   Widget build(BuildContext context) {
     return LScaffold(
@@ -187,29 +193,107 @@ class _HomeViewState extends State<HomeView> {
                   LMiniFlatButton('Mini Flat Button', onPressed: null),
                   LMiniFlatButton('Mini Flat Button', onPressed: () {}),
                   LCard(child: Text('Plain Card')),
-                  LFolderCard(FolderModel(label: 'SAPS Project'),
-                      context: context),
-                  LButtonCard(text: 'SAPS Project', context: context),
+                  LCheckCard(
+                    checked,
+                    (bool value) {
+                      setState(() {
+                        _checked = value;
+                      });
+                    },
+                    label: 'LAPL - Project SVG',
+                  ),
+                  LCard(
+                    flush: true,
+                    onTap: () {},
+                    child: Row(
+                      children: <Widget>[
+                        Checkbox(
+                          value: checked,
+                          onChanged: (bool value) {
+                            setState(() {
+                              _checked = value;
+                            });
+                          },
+                        ),
+                        Expanded(
+                          child: Text(
+                            'Plain Card',
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  LFolderCard(
+                    ProjectModel(label: 'SAPS Project'),
+                    context: context,
+                  ),
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Expanded(
                         child: LFolderCard(
-                          FolderModel(label: 'SAPS Project'),
+                          ProjectModel(label: 'SAPS Project'),
                           context: context,
                         ),
                       ),
                       Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            LButtonCard(
-                              text: 'SAPS Project',
-                              context: context,
-                              leading: Icon(Icons.add, size: 16),
+                        child: LFolderCard(
+                          ProjectModel(label: 'Operations VC'),
+                          context: context,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Expanded(
+                        child: LFolderCard(
+                          ProjectModel(
+                            label: 'Market research product testing',
+                          ),
+                          context: context,
+                          iconData: Icons.assignment,
+                          iconColor: LColors.purpleColor,
+                        ),
+                      ),
+                      Expanded(
+                        child: LFolderCard(
+                          ProjectModel(label: 'Operations VC'),
+                          context: context,
+                          iconData: Icons.content_paste,
+                          iconColor: LColors.purpleColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Expanded(
+                        child: LButtonCard(
+                          text: 'New Responses goes here',
+                          context: context,
+                          color: LColors.primaryLightColor,
+                          trailing: Text(
+                            '20',
+                            style: TextStyle(
+                              fontFamily: Strings.app.font,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 24,
+                              height: 1.33,
+                              color: LColors.grayColor,
                             ),
-                          ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: LButtonCard(
+                          text: 'SAPS Project',
+                          context: context,
                         ),
                       ),
                     ],

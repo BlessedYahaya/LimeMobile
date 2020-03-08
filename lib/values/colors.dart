@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 class LColors {
   static const int primary = 0x0FFA4D4AE;
   static const Color primaryColor = const Color(0x0FFA4D4AE);
-  static const int primaryLight = 0xFF0ECFEEF;
+  static const int primaryLight = 0x0FFECFEEF;
   static const Color primaryLightColor = Color(0x0FFECFEEF);
+  static const int gray = 0xFF81A9AB;
+  static const Color grayColor = Color(0xFF81A9AB);
+  static const int purple = 0xFFAEABE1;
+  static const Color purpleColor = Color(0xFFAEABE1);
 
   static final primarySwatch = MaterialColor(
     primary,
@@ -28,6 +32,10 @@ class LColorsDark {
   static const Color primaryColor = const Color(0x0FFA4D4AE);
   static const int primaryLight = 0xFF0ECFEEF;
   static const Color primaryLightColor = Color(0x0FFECFEEF);
+  static const int gray = 0xFF81A9AB;
+  static const Color grayColor = Color(0xFF81A9AB);
+  static const int purple = 0xFFAEABE1;
+  static const Color purpleColor = Color(0xFFAEABE1);
 
   static final primarySwatch = MaterialColor(
     primary,

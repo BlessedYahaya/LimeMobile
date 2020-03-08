@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lime_mobile_app/models/folder.dart';
+import 'package:lime_mobile_app/models/project.dart';
 import 'package:lime_mobile_app/values/colors.dart';
 import 'package:lime_mobile_app/values/spacing.dart';
 import 'package:lime_mobile_app/values/strings.dart';
@@ -57,12 +57,16 @@ class LCard extends StatelessWidget {
 }
 
 class LFolderCard extends LCard {
-  final FolderModel folder;
+  final ProjectModel folder;
+  final IconData iconData;
+  final Color iconColor;
 
   LFolderCard(
     this.folder, {
     Key key,
     bool flush,
+    this.iconData = Icons.folder,
+    this.iconColor = LColors.grayColor,
     BuildContext context,
     GestureTapCallback onTap,
   }) : super(
@@ -76,8 +80,8 @@ class LFolderCard extends LCard {
               children: <Widget>[
                 Container(
                   child: Icon(
-                    Icons.folder,
-                    color: Colors.grey,
+                    iconData,
+                    color: iconColor,
                     size: 28,
                   ),
                 ),
@@ -86,11 +90,12 @@ class LFolderCard extends LCard {
                   '${folder.label}',
                   style: Theme.of(context).textTheme.subtitle1.copyWith(
                         fontFamily: Strings.app.font,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w400,
                       ),
                   maxLines: 2,
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),
@@ -113,30 +118,71 @@ class LButtonCard extends LCard {
           color: color,
           onTap: onTap,
           child: LimitedBox(
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
+            maxHeight: 40,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                if (leading != null) leading,
-                HSpace.sm,
-                Expanded(
-                  child: Text(
-                    '$text',
-                    style: Theme.of(context).textTheme.subtitle1.copyWith(
-                          fontFamily: Strings.app.font,
-                          fontWeight: FontWeight.bold,
-                          color: textColor,
-                        ),
-                    maxLines: 2,
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    if (leading != null) leading,
+                    HSpace.sm,
+                    Expanded(
+                      child: Text(
+                        '$text',
+                        style: Theme.of(context).textTheme.subtitle1.copyWith(
+                              fontFamily: Strings.app.font,
+                              fontWeight: FontWeight.w400,
+                              color: textColor,
+                            ),
+                        maxLines: 2,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    HSpace.sm,
+                    if (trailing != null) trailing,
+                  ],
                 ),
-                HSpace.sm,
-                if (trailing != null) trailing,
               ],
             ),
+          ),
+        );
+}
+
+class LCheckCard extends LCard {
+  final bool checked;
+  final ValueChanged<bool> onChanged;
+
+  LCheckCard(
+    this.checked,
+    this.onChanged, {
+    Key key,
+    BuildContext context,
+    GestureTapCallback onTap,
+    Color textColor,
+    @required String label,
+  }) : super(
+          key: key,
+          flush: true,
+          onTap: onTap,
+          child: Row(
+            children: <Widget>[
+              Checkbox(
+                value: checked,
+                onChanged: onChanged,
+              ),
+              Expanded(
+                child: Text(
+                  '$label',
+                  maxLines: 1,
+                  softWrap: false,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
         );
 }
