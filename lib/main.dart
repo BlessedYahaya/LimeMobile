@@ -8,6 +8,7 @@ import 'package:lime_mobile_app/components/card.dart';
 import 'package:lime_mobile_app/components/scaffold.dart';
 import 'package:lime_mobile_app/models/project.dart';
 import 'package:lime_mobile_app/models/store.dart';
+import 'package:lime_mobile_app/models/survey.dart';
 import 'package:lime_mobile_app/values/colors.dart';
 import 'package:lime_mobile_app/values/strings.dart';
 import 'package:lime_mobile_app/values/theme.dart';
@@ -260,7 +261,7 @@ class _HomeViewState extends State<HomeView> {
                         child: LProjectCard(
                           ProjectModel(label: 'Operations VC'),
                           context: context,
-                          iconData: Icons.content_paste,
+                          iconData: Icons.assignment,
                           iconColor: LColors.purpleColor,
                         ),
                       ),
@@ -330,6 +331,83 @@ class _HomeViewState extends State<HomeView> {
                       dateCreated: '10th of January 2020',
                       description:
                           'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+                    ),
+                    context: context,
+                  ),
+                  LSurveySummaryCard(
+                    SurveyModel(
+                      label: 'Market research product testing',
+                      active: true,
+                      dateModified: '12/01/2020',
+                      responses: [1, 2, 3],
+                      project: ProjectModel(
+                        label: 'Operations VC',
+                        country: 'Nigeria',
+                        dateCreated: '10th of January 2020',
+                        description:
+                            'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+                      ),
+                    ),
+                    context: context,
+                  ),
+                  LSurveySummaryCard(
+                    SurveyModel(
+                      label: 'Market research product testing',
+                      active: false,
+                      dateModified: '12/01/2020',
+                      responses: [1],
+                      project: ProjectModel(
+                        label: 'Operations VC',
+                        country: 'Nigeria',
+                        dateCreated: '10th of January 2020',
+                        description:
+                            'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+                      ),
+                    ),
+                    context: context,
+                  ),
+                  LSurveySummaryCard(
+                    SurveyModel(
+                      label: 'Market research product testing',
+                      active: false,
+                      dateModified: '12/01/2020',
+                    ),
+                    context: context,
+                  ),
+                  LSurveyDetailsCard(
+                    SurveyModel(
+                      label: 'Market research product testing',
+                      active: false,
+                      dateModified: '14th of January 2020',
+                      dateCreated: '10th of January 2020',
+                      completionTime: '2 mins',
+                      questions: [1, 2, 3],
+                      project: ProjectModel(
+                        label: 'Operations VC',
+                        country: 'Nigeria',
+                        dateCreated: '10th of January 2020',
+                        description:
+                            'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+                      ),
+                    ),
+                    context: context,
+                  ),
+                  LSurveyCollectorsCard(
+                    SurveyModel(
+                      label: 'Market research product testing',
+                      active: false,
+                      dateModified: '14th of January 2020',
+                      dateCreated: '10th of January 2020',
+                      completionTime: '2 mins',
+                      questions: [1, 2, 3],
+                      responses: [1, 2, 3],
+                      project: ProjectModel(
+                        label: 'Operations VC',
+                        country: 'Nigeria',
+                        dateCreated: '10th of January 2020',
+                        description:
+                            'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+                      ),
                     ),
                     context: context,
                   ),

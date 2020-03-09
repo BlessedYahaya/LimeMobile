@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lime_mobile_app/models/project.dart';
 
 part 'survey.g.dart';
 
@@ -12,8 +13,9 @@ class SurveyModel {
   String dateModified;
   String completionTime;
   bool active;
-  List response;
+  List responses;
   List questions;
+  ProjectModel project;
 
   SurveyModel({
     this.id,
@@ -24,8 +26,9 @@ class SurveyModel {
     this.dateModified = '',
     this.completionTime = '',
     this.active = false,
-    this.response = const [],
+    this.responses = const [],
     this.questions = const [],
+    this.project,
   });
 
   static final SurveyModel zero = SurveyModel();
