@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lime_mobile_app/models/project.dart';
+import 'package:lime_mobile_app/models/question.dart';
 
 part 'survey.g.dart';
 
@@ -14,7 +15,7 @@ class SurveyModel {
   String completionTime;
   bool active;
   List responses;
-  List questions;
+  List<QuestionModel> questions;
   ProjectModel project;
 
   SurveyModel({
@@ -27,7 +28,7 @@ class SurveyModel {
     this.completionTime = '',
     this.active = false,
     this.responses = const [],
-    this.questions = const [],
+    this.questions = const <QuestionModel>[],
     this.project,
   });
 
@@ -36,4 +37,9 @@ class SurveyModel {
   factory SurveyModel.fromJson(Map user) => _$SurveyModelFromJson(user);
 
   Map<String, dynamic> toJson() => _$SurveyModelToJson(this);
+
+  @override
+  String toString() {
+    return '${toJson()}';
+  }
 }

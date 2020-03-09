@@ -18,7 +18,7 @@ class ProjectModel {
     this.description = '',
     this.dateCreated = '',
     this.country = '',
-    this.surveys = const [],
+    this.surveys = const <SurveyModel>[],
   });
 
   static final ProjectModel zero = ProjectModel();
@@ -26,6 +26,11 @@ class ProjectModel {
   factory ProjectModel.fromJson(Map user) => _$ProjectModelFromJson(user);
 
   Map<String, dynamic> toJson() => _$ProjectModelToJson(this);
+
+  @override
+  String toString() {
+    return '${toJson()}';
+  }
 
   List<SurveyModel> get activeSurveys =>
       surveys.where((SurveyModel s) => s.active).toList(growable: false);

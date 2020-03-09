@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lime_mobile_app/models/project.dart';
+import 'package:lime_mobile_app/models/question.dart';
 import 'package:lime_mobile_app/models/survey.dart';
 import 'package:lime_mobile_app/values/colors.dart';
 import 'package:lime_mobile_app/values/spacing.dart';
@@ -70,7 +71,7 @@ class LProjectCard extends LCard {
     bool flush,
     this.iconData = Icons.folder,
     this.iconColor = LColors.grayColor,
-    BuildContext context,
+    @required BuildContext context,
     GestureTapCallback onTap,
   }) : super(
           key: key,
@@ -109,7 +110,7 @@ class LProjectCard extends LCard {
 class LButtonCard extends LCard {
   LButtonCard({
     Key key,
-    BuildContext context,
+    @required BuildContext context,
     GestureTapCallback onTap,
     Color color = LColors.primaryColor,
     Color textColor,
@@ -158,7 +159,7 @@ class LButtonCard extends LCard {
 class LSummaryCard extends LCard {
   LSummaryCard({
     Key key,
-    BuildContext context,
+    @required BuildContext context,
     GestureTapCallback onTap,
     Color color = LColors.primaryColor,
     Color textColor,
@@ -217,7 +218,7 @@ class LCheckCard extends LCard {
     this.checked,
     this.onChanged, {
     Key key,
-    BuildContext context,
+    @required BuildContext context,
     GestureTapCallback onTap,
     Color textColor,
     @required String label,
@@ -250,7 +251,7 @@ class LProjectDetailsCard extends LCard {
   LProjectDetailsCard(
     this.project, {
     Key key,
-    BuildContext context,
+    @required BuildContext context,
     GestureTapCallback onTap,
   }) : super(
           key: key,
@@ -322,7 +323,7 @@ class LSurveySummaryCard extends LCard {
   LSurveySummaryCard(
     this.survey, {
     Key key,
-    BuildContext context,
+    @required BuildContext context,
     GestureTapCallback onTap,
   }) : super(
           key: key,
@@ -437,7 +438,7 @@ class LSurveyDetailsCard extends LCard {
   LSurveyDetailsCard(
     this.survey, {
     Key key,
-    BuildContext context,
+    @required BuildContext context,
     GestureTapCallback onTap,
   }) : super(
           key: key,
@@ -543,7 +544,7 @@ class LSurveyCollectorsCard extends LCard {
   LSurveyCollectorsCard(
     this.survey, {
     Key key,
-    BuildContext context,
+    @required BuildContext context,
     GestureTapCallback onTap,
   }) : super(
           key: key,
@@ -587,6 +588,138 @@ class LSurveyCollectorsCard extends LCard {
                         fontWeight: FontWeight.w500,
                       ),
                   softWrap: true,
+                ),
+              ],
+            ),
+          ),
+        );
+}
+
+class LQuestionCard extends LCard {
+  final QuestionModel question;
+  final ValueChanged<OptionModel> onChanged;
+
+  LQuestionCard(
+    this.question,
+    this.onChanged, {
+    Key key,
+    @required BuildContext context,
+    @required int index,
+    GestureTapCallback onTap,
+  }) : super(
+          key: key,
+          onTap: onTap,
+          child: LimitedBox(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      '$index.',
+                      style: Theme.of(context).textTheme.caption.copyWith(
+                            fontFamily: Strings.app.font,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                    HSpace.sm,
+                    Expanded(
+                      child: Text(
+                        '${question.question}',
+                        style: Theme.of(context).textTheme.caption.copyWith(
+                              fontFamily: Strings.app.font,
+                              fontWeight: FontWeight.w500,
+                            ),
+                        softWrap: true,
+                      ),
+                    ),
+                  ],
+                ),
+                VSpace.sm,
+                for (OptionModel _option in question.options)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Radio<OptionModel>(
+                        value: _option,
+                        groupValue: question.answer,
+                        onChanged: (OptionModel option) {
+                          if (question.answer != null) {
+                            question.answer.selected = false;
+                          }
+                          option.selected = true;
+                          onChanged(option);
+                        },
+                      ),
+                      Expanded(
+                        child: Text('${_option.label}', softWrap: true),
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+          ),
+        );
+}
+
+class LOpenQuestionCard extends LCard {
+  final OpenQuestionModel question;
+  final ValueChanged<String> onChanged;
+  final FormFieldValidator<String> validator;
+
+  LOpenQuestionCard(
+    this.question,
+    this.onChanged,
+    this.validator, {
+    Key key,
+    @required BuildContext context,
+    @required int index,
+    GestureTapCallback onTap,
+  }) : super(
+          key: key,
+          onTap: onTap,
+          child: LimitedBox(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  '$index.',
+                  style: Theme.of(context).textTheme.caption.copyWith(
+                        fontFamily: Strings.app.font,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                HSpace.sm,
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        '${question.question}',
+                        style: Theme.of(context).textTheme.caption.copyWith(
+                              fontFamily: Strings.app.font,
+                              fontWeight: FontWeight.w500,
+                            ),
+                        softWrap: true,
+                      ),
+                      VSpace.md,
+                      LimitedBox(
+                          child: TextFormField(
+                        validator: validator,
+                        minLines: 3,
+                        maxLines: 3,
+                        onChanged: (String value) {
+                          question.answer = value;
+                          onChanged(value);
+                        },
+                      )),
+                    ],
+                  ),
                 ),
               ],
             ),

@@ -15,4 +15,9 @@ class UserModel {
   factory UserModel.fromJson(Map user) => _$UserModelFromJson(user);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
+
+  @override
+  String toString() {
+    return '${toJson()}';
+  }
 }

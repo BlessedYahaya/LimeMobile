@@ -7,8 +7,10 @@ import 'package:lime_mobile_app/components/button.dart';
 import 'package:lime_mobile_app/components/card.dart';
 import 'package:lime_mobile_app/components/scaffold.dart';
 import 'package:lime_mobile_app/models/project.dart';
+import 'package:lime_mobile_app/models/question.dart';
 import 'package:lime_mobile_app/models/store.dart';
 import 'package:lime_mobile_app/models/survey.dart';
+import 'package:lime_mobile_app/utils.dart';
 import 'package:lime_mobile_app/values/colors.dart';
 import 'package:lime_mobile_app/values/strings.dart';
 import 'package:lime_mobile_app/values/theme.dart';
@@ -160,6 +162,16 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   bool _checked = false;
+  QuestionModel question = QuestionModel(
+    question: 'What do you think about Product A?',
+    options: [
+      OptionModel(id: 1, label: 'I love it'),
+      OptionModel(id: 2, label: 'I hate it'),
+      OptionModel(id: 3, label: 'I\’m indifferent'),
+    ],
+  );
+  OpenQuestionModel openQuestion =
+      OpenQuestionModel(question: 'What do you think about Product A?');
 
   bool get checked => _checked;
 
@@ -202,6 +214,7 @@ class _HomeViewState extends State<HomeView> {
                       });
                     },
                     label: 'LAPL - Project SVG',
+                    context: context,
                   ),
                   LCard(
                     flush: true,
@@ -381,7 +394,7 @@ class _HomeViewState extends State<HomeView> {
                       dateModified: '14th of January 2020',
                       dateCreated: '10th of January 2020',
                       completionTime: '2 mins',
-                      questions: [1, 2, 3],
+                      questions: [],
                       project: ProjectModel(
                         label: 'Operations VC',
                         country: 'Nigeria',
@@ -399,7 +412,7 @@ class _HomeViewState extends State<HomeView> {
                       dateModified: '14th of January 2020',
                       dateCreated: '10th of January 2020',
                       completionTime: '2 mins',
-                      questions: [1, 2, 3],
+                      questions: [],
                       responses: [1, 2, 3],
                       project: ProjectModel(
                         label: 'Operations VC',
@@ -410,6 +423,21 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ),
                     context: context,
+                  ),
+                  LQuestionCard(
+                    question,
+                    (OptionModel option) {
+                      setState(() {});
+                    },
+                    context: context,
+                    index: 1,
+                  ),
+                  LOpenQuestionCard(
+                    openQuestion,
+                    (String value) {},
+                    (String value) => validateRequired(value, 'This'),
+                    context: context,
+                    index: 2,
                   ),
                 ],
               ),

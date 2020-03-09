@@ -7,6 +7,8 @@ class LColors {
   static const Color primaryLightColor = Color(0x0FFECFEEF);
   static const int gray = 0xFF81A9AB;
   static const Color grayColor = Color(0xFF81A9AB);
+  static const int ash = 0xFFF9F9F9;
+  static const Color ashColor = Color(0xFFF9F9F9);
   static const int purple = 0xFFAEABE1;
   static const Color purpleColor = Color(0xFFAEABE1);
 
@@ -34,6 +36,8 @@ class LColorsDark {
   static const Color primaryLightColor = Color(0x0FFECFEEF);
   static const int gray = 0xFF81A9AB;
   static const Color grayColor = Color(0xFF81A9AB);
+  static const int ash = 0xFFF9F9F9;
+  static const Color ashColor = Color(0xFFF9F9F9);
   static const int purple = 0xFFAEABE1;
   static const Color purpleColor = Color(0xFFAEABE1);
 

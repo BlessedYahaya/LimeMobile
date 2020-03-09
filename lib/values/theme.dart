@@ -22,8 +22,9 @@ ThemeData baseTheme(BuildContext context) => ThemeData(
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
+        fillColor: LColors.ashColor,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(5.0),
           borderSide: BorderSide.none,
         ),
         contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
