@@ -12,6 +12,10 @@ ProjectModel _$ProjectModelFromJson(Map json) {
     label: json['label'] as String,
     description: json['description'] as String,
     dateCreated: json['dateCreated'] as String,
+    country: json['country'] as String,
+    surveys: (json['surveys'] as List)
+        ?.map((e) => e == null ? null : SurveyModel.fromJson(e as Map))
+        ?.toList(),
   );
 }
 
@@ -21,4 +25,6 @@ Map<String, dynamic> _$ProjectModelToJson(ProjectModel instance) =>
       'label': instance.label,
       'description': instance.description,
       'dateCreated': instance.dateCreated,
+      'country': instance.country,
+      'surveys': instance.surveys?.map((e) => e?.toJson())?.toList(),
     };

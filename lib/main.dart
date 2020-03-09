@@ -226,21 +226,17 @@ class _HomeViewState extends State<HomeView> {
                       ],
                     ),
                   ),
-                  LFolderCard(
-                    ProjectModel(label: 'SAPS Project'),
-                    context: context,
-                  ),
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Expanded(
-                        child: LFolderCard(
+                        child: LProjectCard(
                           ProjectModel(label: 'SAPS Project'),
                           context: context,
                         ),
                       ),
                       Expanded(
-                        child: LFolderCard(
+                        child: LProjectCard(
                           ProjectModel(label: 'Operations VC'),
                           context: context,
                         ),
@@ -251,7 +247,7 @@ class _HomeViewState extends State<HomeView> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Expanded(
-                        child: LFolderCard(
+                        child: LProjectCard(
                           ProjectModel(
                             label: 'Market research product testing',
                           ),
@@ -261,7 +257,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ),
                       Expanded(
-                        child: LFolderCard(
+                        child: LProjectCard(
                           ProjectModel(label: 'Operations VC'),
                           context: context,
                           iconData: Icons.content_paste,
@@ -275,7 +271,7 @@ class _HomeViewState extends State<HomeView> {
                     children: <Widget>[
                       Expanded(
                         child: LButtonCard(
-                          text: 'New Responses goes here',
+                          label: 'New Responses goes here',
                           context: context,
                           color: LColors.primaryLightColor,
                           trailing: Text(
@@ -292,11 +288,50 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       Expanded(
                         child: LButtonCard(
-                          text: 'SAPS Project',
+                          label: 'SAPS Project',
                           context: context,
                         ),
                       ),
                     ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Expanded(
+                        child: LSummaryCard(
+                          label: 'Total\nSurveys',
+                          context: context,
+                          color: LColors.primaryLightColor,
+                          value: '20',
+                        ),
+                      ),
+                      Expanded(
+                        child: LSummaryCard(
+                          label: 'Active Surveys',
+                          context: context,
+                          color: LColors.primaryLightColor,
+                          value: '20',
+                        ),
+                      ),
+                      Expanded(
+                        child: LSummaryCard(
+                          label: 'Draft Surveys',
+                          context: context,
+                          color: LColors.primaryLightColor,
+                          value: '20',
+                        ),
+                      ),
+                    ],
+                  ),
+                  LProjectDetailsCard(
+                    ProjectModel(
+                      label: 'Operations VC',
+                      country: 'Nigeria',
+                      dateCreated: '10th of January 2020',
+                      description:
+                          'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+                    ),
+                    context: context,
                   ),
                 ],
               ),

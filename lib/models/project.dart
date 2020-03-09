@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lime_mobile_app/models/survey.dart';
 
 part 'project.g.dart';
 
@@ -8,12 +9,16 @@ class ProjectModel {
   String label;
   String description;
   String dateCreated;
+  String country;
+  List<SurveyModel> surveys;
 
   ProjectModel({
     this.id,
     this.label = '',
     this.description = '',
     this.dateCreated = '',
+    this.country = '',
+    this.surveys = const [],
   });
 
   static final ProjectModel zero = ProjectModel();
@@ -21,4 +26,9 @@ class ProjectModel {
   factory ProjectModel.fromJson(Map user) => _$ProjectModelFromJson(user);
 
   Map<String, dynamic> toJson() => _$ProjectModelToJson(this);
+
+  List<SurveyModel> get activeSurveys =>
+      surveys.where((SurveyModel s) => s.active).toList(growable: false);
+  List<SurveyModel> get draftSurveys =>
+      surveys.where((SurveyModel s) => !s.active).toList(growable: false);
 }
