@@ -7,11 +7,13 @@ class QuestionModel {
   int id;
   int surveyID;
   String question;
+  String message;
   List<OptionModel> options;
 
   QuestionModel({
     this.id,
     this.question = '',
+    this.message,
     this.options = const <OptionModel>[],
   });
 
@@ -28,6 +30,8 @@ class QuestionModel {
 
   OptionModel get answer => options
       .firstWhere((OptionModel option) => option.selected, orElse: () => null);
+
+  bool get answered => answer != null;
 }
 
 @JsonSerializable(explicitToJson: true, anyMap: true)

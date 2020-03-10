@@ -19,13 +19,16 @@ class TLResponse {
     if (error is SocketException) {
       print('error message: ${error.message}');
       // errorCode == 8 means device is offline
-      // errorCode == 61 means endpoint cannot be reached
+      // errorCode == 61 or 111 means endpoint cannot be reached
       print('OS error code: ${error.osError.errorCode}');
       print('OS error message: ${error.osError.message}');
       if (error.osError.errorCode == 8) {
         message = 'Please check your internet connection.';
-      } else if (error.osError.errorCode == 61) {
+      } else if (error.osError.errorCode == 61 ||
+          error.osError.errorCode == 111) {
         message = 'The server could not be reached, please try again later.';
+      } else {
+        message = 'A network error prevented us from reaching the server, please try again later.';
       }
     }
 

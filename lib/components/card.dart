@@ -599,10 +599,10 @@ class LQuestionCard extends LCard {
   final QuestionModel question;
   final ValueChanged<OptionModel> onChanged;
 
-  LQuestionCard(
-    this.question,
-    this.onChanged, {
+  LQuestionCard({
     Key key,
+    this.question,
+    this.onChanged,
     @required BuildContext context,
     @required int index,
     GestureTapCallback onTap,
@@ -647,19 +647,25 @@ class LQuestionCard extends LCard {
                       Radio<OptionModel>(
                         value: _option,
                         groupValue: question.answer,
-                        onChanged: (OptionModel option) {
-                          if (question.answer != null) {
-                            question.answer.selected = false;
-                          }
-                          option.selected = true;
-                          onChanged(option);
-                        },
+                        onChanged: onChanged,
                       ),
                       Expanded(
                         child: Text('${_option.label}', softWrap: true),
                       ),
                     ],
                   ),
+                if (question.message != null) ...[
+                  VSpace.sm,
+                  Text(
+                    '${question.message}',
+                    style: Theme.of(context).textTheme.caption.copyWith(
+                          fontFamily: Strings.app.font,
+                          color: Theme.of(context).errorColor,
+                          fontWeight: FontWeight.w500,
+                        ),
+                    softWrap: true,
+                  ),
+                ],
               ],
             ),
           ),
@@ -671,11 +677,11 @@ class LOpenQuestionCard extends LCard {
   final ValueChanged<String> onChanged;
   final FormFieldValidator<String> validator;
 
-  LOpenQuestionCard(
-    this.question,
-    this.onChanged,
-    this.validator, {
+  LOpenQuestionCard({
     Key key,
+    @required this.question,
+    @required this.onChanged,
+    this.validator,
     @required BuildContext context,
     @required int index,
     GestureTapCallback onTap,
@@ -713,10 +719,7 @@ class LOpenQuestionCard extends LCard {
                         validator: validator,
                         minLines: 3,
                         maxLines: 3,
-                        onChanged: (String value) {
-                          question.answer = value;
-                          onChanged(value);
-                        },
+                        onChanged: onChanged,
                       )),
                     ],
                   ),

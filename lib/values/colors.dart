@@ -11,6 +11,8 @@ class LColors {
   static const Color ashColor = Color(0xFFF9F9F9);
   static const int purple = 0xFFAEABE1;
   static const Color purpleColor = Color(0xFFAEABE1);
+  static const int error = 0xFFDC4343;
+  static const Color errorColor = Color(0xFFDC4343);
 
   static final primarySwatch = MaterialColor(
     primary,
@@ -36,10 +38,12 @@ class LColorsDark {
   static const Color primaryLightColor = Color(0x0FFECFEEF);
   static const int gray = 0xFF81A9AB;
   static const Color grayColor = Color(0xFF81A9AB);
-  static const int ash = 0xFFF9F9F9;
-  static const Color ashColor = Color(0xFFF9F9F9);
-  static const int purple = 0xFFAEABE1;
-  static const Color purpleColor = Color(0xFFAEABE1);
+  static const int ash = 0x0FFF9F9F9;
+  static const Color ashColor = Color(0x0FFF9F9F9);
+  static const int purple = 0x0FFAEABE1;
+  static const Color purpleColor = Color(0x0FFAEABE1);
+  static const int error = 0x0FFDC4343;
+  static const Color errorColor = Color(0x0AFDC4343);
 
   static final primarySwatch = MaterialColor(
     primary,

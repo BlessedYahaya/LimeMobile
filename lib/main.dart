@@ -161,6 +161,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _checked = false;
   QuestionModel question = QuestionModel(
     question: 'What do you think about Product A?',
@@ -174,6 +175,8 @@ class _HomeViewState extends State<HomeView> {
       OpenQuestionModel(question: 'What do you think about Product A?');
 
   bool get checked => _checked;
+
+  bool get _formValid => _formKey.currentState.validate() && question.answered;
 
   @override
   Widget build(BuildContext context) {
@@ -425,19 +428,62 @@ class _HomeViewState extends State<HomeView> {
                     context: context,
                   ),
                   LQuestionCard(
-                    question,
-                    (OptionModel option) {
-                      setState(() {});
+                    question: question,
+                    onChanged: (OptionModel option) {
+                      setState(() {
+                        if (question.answer != null) {
+                          question.answer.selected = false;
+                        } else {
+                          question.message = null;
+                        }
+                        option.selected = true;
+                      });
                     },
                     context: context,
                     index: 1,
                   ),
-                  LOpenQuestionCard(
-                    openQuestion,
-                    (String value) {},
-                    (String value) => validateRequired(value, 'This'),
-                    context: context,
-                    index: 2,
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        LOpenQuestionCard(
+                          question: openQuestion,
+                          onChanged: (String value) {
+                            openQuestion.answer = value;
+                          },
+                          validator: (String value) =>
+                              validateRequired(value, 'This'),
+                          context: context,
+                          index: 2,
+                        ),
+                        LOpenQuestionCard(
+                          question: openQuestion,
+                          onChanged: (String value) {
+                            openQuestion.answer = value;
+                          },
+                          context: context,
+                          index: 3,
+                        ),
+                        LMiniButton(
+                          'Submit',
+                          icon: Icon(Icons.add, size: 16),
+                          onPressed: () {
+                            setState(() {
+                              if (!question.answered) {
+                                question.message =
+                                    'Choose an option to proceed';
+                              } else {
+                                question.message = null;
+                              }
+                            });
+                            if (_formValid) {
+                              _formKey.currentState.reset();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

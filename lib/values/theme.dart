@@ -42,6 +42,7 @@ ThemeData theme(BuildContext context) => baseTheme(context).copyWith(
       brightness: Brightness.light,
       primaryColor: LColors.primaryColor,
       highlightColor: LColors.primaryColor.withOpacity(0.3),
+      errorColor: LColors.errorColor,
       appBarTheme: AppBarTheme.of(context).copyWith(
         textTheme: TextTheme(
           headline6: TextStyle(color: Colors.white, fontSize: 20),
@@ -55,6 +56,7 @@ ThemeData darkTheme(BuildContext context) => baseTheme(context).copyWith(
       brightness: Brightness.dark,
       primaryColor: LColorsDark.primaryLightColor,
       highlightColor: LColorsDark.primaryColor.withOpacity(0.3),
+      errorColor: LColorsDark.errorColor,
       appBarTheme: AppBarTheme.of(context).copyWith(
         color: Colors.white,
         textTheme: TextTheme(
