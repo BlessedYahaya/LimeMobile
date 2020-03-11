@@ -108,7 +108,7 @@ class LScaffold extends StatelessWidget {
   }
 }
 
-class TLTabScaffold extends LScaffold {
+class LTabScaffold extends LScaffold {
   /// Cupertino-specific options
   final CupertinoTabBar tabBar;
   final CupertinoTabController controller;
@@ -136,8 +136,9 @@ class TLTabScaffold extends LScaffold {
   final ValueChanged<int> onTap;
   final int currentIndex;
 
-  TLTabScaffold({
+  LTabScaffold({
     Key key,
+    @required BuildContext context,
     // cupertino data
     this.tabBar,
     this.controller,
@@ -205,7 +206,8 @@ class TLTabScaffold extends LScaffold {
             selectedItemColor: selectedItemColor,
             iconSize: iconSize,
             selectedFontSize: selectedFontSize,
-            unselectedItemColor: unselectedItemColor,
+            unselectedItemColor: unselectedItemColor ??
+                Theme.of(context).textTheme.bodyText1.color,
             selectedIconTheme: selectedIconTheme,
             unselectedIconTheme: unselectedIconTheme,
             unselectedFontSize: unselectedFontSize,
@@ -240,7 +242,8 @@ class TLTabScaffold extends LScaffold {
           onTap: onTap,
           currentIndex: currentIndex,
           activeColor: selectedItemColor,
-          inactiveColor: unselectedItemColor,
+          inactiveColor: unselectedItemColor ??
+              Theme.of(context).textTheme.bodyText1.color,
           iconSize: iconSize,
         ),
         controller: controller,

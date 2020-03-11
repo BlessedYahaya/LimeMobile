@@ -13,6 +13,7 @@ ProjectModel _$ProjectModelFromJson(Map json) {
     description: json['description'] as String,
     dateCreated: json['dateCreated'] as String,
     country: json['country'] as String,
+    checked: json['checked'] as bool,
     surveys: (json['surveys'] as List)
         ?.map((e) => e == null ? null : SurveyModel.fromJson(e as Map))
         ?.toList(),
@@ -27,4 +28,5 @@ Map<String, dynamic> _$ProjectModelToJson(ProjectModel instance) =>
       'dateCreated': instance.dateCreated,
       'country': instance.country,
       'surveys': instance.surveys?.map((e) => e?.toJson())?.toList(),
+      'checked': instance.checked,
     };

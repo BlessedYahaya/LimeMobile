@@ -11,6 +11,7 @@ class ProjectModel {
   String dateCreated;
   String country;
   List<SurveyModel> surveys;
+  bool checked;
 
   ProjectModel({
     this.id,
@@ -18,6 +19,7 @@ class ProjectModel {
     this.description = '',
     this.dateCreated = '',
     this.country = '',
+    this.checked = false,
     this.surveys = const <SurveyModel>[],
   });
 

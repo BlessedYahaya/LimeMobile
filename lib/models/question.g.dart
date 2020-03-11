@@ -10,6 +10,7 @@ QuestionModel _$QuestionModelFromJson(Map json) {
   return QuestionModel(
     id: json['id'] as int,
     question: json['question'] as String,
+    message: json['message'] as String,
     options: (json['options'] as List)
         ?.map((e) => e == null ? null : OptionModel.fromJson(e as Map))
         ?.toList(),
@@ -21,6 +22,7 @@ Map<String, dynamic> _$QuestionModelToJson(QuestionModel instance) =>
       'id': instance.id,
       'surveyID': instance.surveyID,
       'question': instance.question,
+      'message': instance.message,
       'options': instance.options?.map((e) => e?.toJson())?.toList(),
     };
 

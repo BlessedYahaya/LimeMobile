@@ -78,16 +78,16 @@ class LProjectCard extends LCard {
           flush: flush ?? false,
           onTap: onTap,
           child: LimitedBox(
+            maxWidth: 140,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  child: Icon(
-                    iconData,
-                    color: iconColor,
-                    size: 28,
-                  ),
+                Container(width: 140),
+                Icon(
+                  iconData,
+                  color: iconColor,
+                  size: 28,
                 ),
                 VSpace.md,
                 Text(
