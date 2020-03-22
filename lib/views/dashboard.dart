@@ -103,11 +103,3 @@ class _DashboardViewState extends State<DashboardView> {
     });
   }
 }
-
-class TabViewModel {
-  final Widget component;
-  final PreferredSizeWidget appBar;
-  final ObstructingPreferredSizeWidget navigationBar;
-
-  TabViewModel({@required this.component, this.appBar, this.navigationBar});
-}

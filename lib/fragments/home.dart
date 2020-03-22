@@ -42,7 +42,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   Widget build(BuildContext context) {
     return LScaffold(
       appBar: AppBar(
-        title: Text('Lime'),
+        title: Text('Home'),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.search), onPressed: () {})
         ],
@@ -71,7 +71,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                     store.user.picture.isEmpty)
                                 ? Icon(
                                     Icons.person,
-                                    color: Colors.grey,
+                                    color: Colors.white,
                                     size: 16,
                                   )
                                 : null,

@@ -35,7 +35,7 @@ class _ProjectsFragmentState extends State<ProjectsFragment> {
   Widget build(BuildContext context) {
     return LScaffold(
       appBar: AppBar(
-        title: Text('Lime'),
+        title: Text('Projects'),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.search), onPressed: () {})
         ],
