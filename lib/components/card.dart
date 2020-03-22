@@ -645,7 +645,7 @@ class LSurveyCollectorsCard extends LCard {
 }
 
 class LQuestionCard extends LCard {
-  final QuestionModel question;
+  final MultiChoiceQuestionModel question;
   final ValueChanged<OptionModel> onChanged;
 
   LQuestionCard({

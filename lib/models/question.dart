@@ -8,20 +8,39 @@ class QuestionModel {
   int surveyID;
   String question;
   String message;
-  List<OptionModel> options;
 
-  QuestionModel({
-    this.id,
-    this.question = '',
-    this.message,
-    this.options = const <OptionModel>[],
-  });
+  QuestionModel({this.id, this.surveyID, this.question = '', this.message});
 
   static final QuestionModel zero = QuestionModel();
 
   factory QuestionModel.fromJson(Map user) => _$QuestionModelFromJson(user);
 
   Map<String, dynamic> toJson() => _$QuestionModelToJson(this);
+
+  @override
+  String toString() {
+    return '${toJson()}';
+  }
+}
+
+@JsonSerializable(explicitToJson: true, anyMap: true)
+class MultiChoiceQuestionModel extends QuestionModel {
+  final List<OptionModel> options;
+
+  MultiChoiceQuestionModel({
+    int id,
+    int surveyID,
+    String question = '',
+    String message,
+    this.options = const <OptionModel>[],
+  }) : super(id: id, surveyID: surveyID, question: question, message: message);
+
+  static final MultiChoiceQuestionModel zero = MultiChoiceQuestionModel();
+
+  factory MultiChoiceQuestionModel.fromJson(Map user) =>
+      _$MultiChoiceQuestionModelFromJson(user);
+
+  Map<String, dynamic> toJson() => _$MultiChoiceQuestionModelToJson(this);
 
   @override
   String toString() {
@@ -35,13 +54,16 @@ class QuestionModel {
 }
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
-class OpenQuestionModel {
-  int id;
-  int surveyID;
-  String question;
+class OpenQuestionModel extends QuestionModel {
   String answer;
 
-  OpenQuestionModel({this.id, this.question = '', this.answer = ''});
+  OpenQuestionModel({
+    int id,
+    int surveyID,
+    String question = '',
+    String message,
+    this.answer = '',
+  }) : super(id: id, surveyID: surveyID, question: question, message: message);
 
   static final OpenQuestionModel zero = OpenQuestionModel();
 

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:lime_mobile_app/components/button.dart';
 import 'package:lime_mobile_app/components/card.dart';
 import 'package:lime_mobile_app/components/scaffold.dart';
+import 'package:lime_mobile_app/models/question.dart';
 import 'package:lime_mobile_app/models/survey.dart';
+import 'package:lime_mobile_app/utils.dart';
 import 'package:lime_mobile_app/values/colors.dart';
 import 'package:lime_mobile_app/values/spacing.dart';
 
@@ -19,6 +21,7 @@ class SurveyView extends StatefulWidget {
 }
 
 class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TabController tabCtrl;
 
   @override
@@ -171,12 +174,63 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           VSpace.md,
                           LSurveySummaryCard(
                             widget.survey,
                             context: context,
                             showProject: false,
+                          ),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                for (QuestionModel question
+                                    in widget.survey.questions) ...[
+                                  if (question is OpenQuestionModel)
+                                    LOpenQuestionCard(
+                                      question: question,
+                                      onChanged: (String value) {
+                                        question.answer = value;
+                                      },
+                                      validator: (String value) =>
+                                          validateRequired(value, 'This'),
+                                      context: context,
+                                      index: widget.survey.questions
+                                              .indexOf(question) +
+                                          1,
+                                    ),
+                                  if (question is MultiChoiceQuestionModel)
+                                    LQuestionCard(
+                                      question: question,
+                                      context: context,
+                                      index: widget.survey.questions
+                                              .indexOf(question) +
+                                          1,
+                                      onChanged: (OptionModel option) {
+                                        setState(() {
+                                          if (question.answer != null) {
+                                            question.answer.selected = false;
+                                          } else {
+                                            question.message = null;
+                                          }
+                                          option.selected = true;
+                                        });
+                                      },
+                                    ),
+                                ],
+                                LMiniButton(
+                                  'Submit',
+                                  icon: Icon(Icons.send, size: 16),
+                                  onPressed: () {},
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

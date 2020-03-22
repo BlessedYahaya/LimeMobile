@@ -9,15 +9,34 @@ part of 'question.dart';
 QuestionModel _$QuestionModelFromJson(Map json) {
   return QuestionModel(
     id: json['id'] as int,
+    surveyID: json['surveyID'] as int,
+    question: json['question'] as String,
+    message: json['message'] as String,
+  );
+}
+
+Map<String, dynamic> _$QuestionModelToJson(QuestionModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'surveyID': instance.surveyID,
+      'question': instance.question,
+      'message': instance.message,
+    };
+
+MultiChoiceQuestionModel _$MultiChoiceQuestionModelFromJson(Map json) {
+  return MultiChoiceQuestionModel(
+    id: json['id'] as int,
+    surveyID: json['surveyID'] as int,
     question: json['question'] as String,
     message: json['message'] as String,
     options: (json['options'] as List)
         ?.map((e) => e == null ? null : OptionModel.fromJson(e as Map))
         ?.toList(),
-  )..surveyID = json['surveyID'] as int;
+  );
 }
 
-Map<String, dynamic> _$QuestionModelToJson(QuestionModel instance) =>
+Map<String, dynamic> _$MultiChoiceQuestionModelToJson(
+        MultiChoiceQuestionModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'surveyID': instance.surveyID,
@@ -29,9 +48,11 @@ Map<String, dynamic> _$QuestionModelToJson(QuestionModel instance) =>
 OpenQuestionModel _$OpenQuestionModelFromJson(Map json) {
   return OpenQuestionModel(
     id: json['id'] as int,
+    surveyID: json['surveyID'] as int,
     question: json['question'] as String,
+    message: json['message'] as String,
     answer: json['answer'] as String,
-  )..surveyID = json['surveyID'] as int;
+  );
 }
 
 Map<String, dynamic> _$OpenQuestionModelToJson(OpenQuestionModel instance) =>
@@ -39,6 +60,7 @@ Map<String, dynamic> _$OpenQuestionModelToJson(OpenQuestionModel instance) =>
       'id': instance.id,
       'surveyID': instance.surveyID,
       'question': instance.question,
+      'message': instance.message,
       'answer': instance.answer,
     };
 

@@ -179,7 +179,7 @@ class StoreModel extends ChangeNotifier {
               'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
         ),
         questions: [
-          QuestionModel(
+          MultiChoiceQuestionModel(
             question: 'What do you think about Product A?',
             options: [
               OptionModel(id: 1, label: 'I love it'),
@@ -187,7 +187,7 @@ class StoreModel extends ChangeNotifier {
               OptionModel(id: 3, label: 'I\’m indifferent'),
             ],
           ),
-          QuestionModel(
+          MultiChoiceQuestionModel(
             question: 'What do you think about Product A?',
             options: [
               OptionModel(id: 1, label: 'I love it'),
@@ -195,6 +195,7 @@ class StoreModel extends ChangeNotifier {
               OptionModel(id: 3, label: 'I\’m indifferent'),
             ],
           ),
+          OpenQuestionModel(question: 'What do you think about Product A?'),
         ],
         collectors: [
           CollectorModel(label: 'Live Survey', responses: [1, 2, 3, 4]),
@@ -214,7 +215,7 @@ class StoreModel extends ChangeNotifier {
               'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
         ),
         questions: [
-          QuestionModel(
+          MultiChoiceQuestionModel(
             question: 'What do you think about Product A?',
             options: [
               OptionModel(id: 1, label: 'I love it'),
@@ -222,7 +223,8 @@ class StoreModel extends ChangeNotifier {
               OptionModel(id: 3, label: 'I\’m indifferent'),
             ],
           ),
-          QuestionModel(
+          OpenQuestionModel(question: 'What do you think about Product A?'),
+          MultiChoiceQuestionModel(
             question: 'What do you think about Product A?',
             options: [
               OptionModel(id: 1, label: 'I love it'),
@@ -251,7 +253,8 @@ class StoreModel extends ChangeNotifier {
               'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
         ),
         questions: [
-          QuestionModel(
+          OpenQuestionModel(question: 'What do you think about Product A?'),
+          MultiChoiceQuestionModel(
             question: 'What do you think about Product A?',
             options: [
               OptionModel(id: 1, label: 'I love it'),
@@ -259,7 +262,7 @@ class StoreModel extends ChangeNotifier {
               OptionModel(id: 3, label: 'I\’m indifferent'),
             ],
           ),
-          QuestionModel(
+          MultiChoiceQuestionModel(
             question: 'What do you think about Product A?',
             options: [
               OptionModel(id: 1, label: 'I love it'),

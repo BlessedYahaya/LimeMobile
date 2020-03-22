@@ -19,7 +19,7 @@ class ExampleFragment extends StatefulWidget {
 class _ExampleFragmentState extends State<ExampleFragment> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _checked = false;
-  QuestionModel question = QuestionModel(
+  MultiChoiceQuestionModel question = MultiChoiceQuestionModel(
     question: 'What do you think about Product A?',
     options: [
       OptionModel(id: 1, label: 'I love it'),
