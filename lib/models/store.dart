@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:lime_mobile_app/models/project.dart';
+import 'package:lime_mobile_app/models/survey.dart';
 import 'package:lime_mobile_app/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,6 +21,57 @@ class StoreModel extends ChangeNotifier {
       lastName: 'Doe',
     );
     env = {};
+    // TODO: remove static data, just assign to empty array []
+    projects = [
+      ProjectModel(
+          label: 'Operations VC',
+          country: 'Nigeria',
+          dateCreated: '10th of January 2020',
+          description:
+              'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+          surveys: [
+            SurveyModel(active: true),
+            SurveyModel(),
+            SurveyModel(active: true),
+            SurveyModel(),
+          ]),
+      ProjectModel(
+          label: 'LAPL - Project SVG',
+          country: 'Nigeria',
+          dateCreated: '10th of January 2020',
+          description:
+              'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+          surveys: [
+            SurveyModel(active: true),
+            SurveyModel(),
+            SurveyModel(active: true),
+            SurveyModel(),
+            SurveyModel(active: true),
+            SurveyModel(),
+          ]),
+      ProjectModel(
+        label: 'SAPS Project',
+        country: 'Nigeria',
+        dateCreated: '10th of January 2020',
+        description:
+            'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+        surveys: [
+          SurveyModel(active: true),
+          SurveyModel(),
+          SurveyModel(active: true),
+          SurveyModel(active: true),
+          SurveyModel(),
+          SurveyModel(active: true),
+          SurveyModel(),
+        ],
+      ),
+    ];
+
+    surveys = [
+      SurveyModel(label: 'Market research product testing', active: true),
+      SurveyModel(label: 'Operations VC'),
+      SurveyModel(label: 'Operations VC 2', active: true),
+    ];
   }
 
   StoreModel.zero() {
@@ -41,6 +94,10 @@ class StoreModel extends ChangeNotifier {
   Brightness platformBrightness;
   Brightness oldBrightness;
   Brightness brightness;
+
+  // app-wide data stores
+  List<ProjectModel> projects;
+  List<SurveyModel> surveys;
 
   bool get isDarkMode => _darkMode == true;
 

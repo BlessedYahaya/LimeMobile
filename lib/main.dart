@@ -72,7 +72,6 @@ class App extends StatefulWidget {
 
   static Future pushPageRoute(
     Widget view, {
-    String title,
     RouteSettings settings,
     bool maintainState = true,
     bool fullscreenDialog = false,

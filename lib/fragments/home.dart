@@ -8,9 +8,11 @@ import 'package:lime_mobile_app/components/scaffold.dart';
 import 'package:lime_mobile_app/main.dart';
 import 'package:lime_mobile_app/models/project.dart';
 import 'package:lime_mobile_app/models/store.dart';
+import 'package:lime_mobile_app/models/survey.dart';
 import 'package:lime_mobile_app/values/colors.dart';
 import 'package:lime_mobile_app/values/spacing.dart';
 import 'package:lime_mobile_app/values/strings.dart';
+import 'package:lime_mobile_app/views/project.dart';
 import 'package:provider/provider.dart';
 
 class HomeFragment extends StatefulWidget {
@@ -178,71 +180,18 @@ class _HomeFragmentState extends State<HomeFragment> {
                                 parent: BouncingScrollPhysics(),
                               ),
                               children: <Widget>[
-                                LProjectCard(
-                                  ProjectModel(label: 'SAPS Project'),
-                                  context: context,
-                                  onTap: () {},
-                                ),
-                                LProjectCard(
-                                  ProjectModel(label: 'Operations VC'),
-                                  context: context,
-                                  onTap: () {},
-                                ),
-                                LProjectCard(
-                                  ProjectModel(label: 'SAPS Project'),
-                                  context: context,
-                                  onTap: () {},
-                                ),
-                                LProjectCard(
-                                  ProjectModel(label: 'Operations VC'),
-                                  context: context,
-                                  onTap: () {},
-                                ),
-                                LProjectCard(
-                                  ProjectModel(label: 'Operations VC'),
-                                  context: context,
-                                  onTap: () {},
-                                ),
-                                LProjectCard(
-                                  ProjectModel(label: 'SAPS Project'),
-                                  context: context,
-                                  onTap: () {},
-                                ),
-                                LProjectCard(
-                                  ProjectModel(label: 'Operations VC'),
-                                  context: context,
-                                  onTap: () {},
-                                ),
-                                LProjectCard(
-                                  ProjectModel(label: 'Operations VC'),
-                                  context: context,
-                                  onTap: () {},
-                                ),
-                                LProjectCard(
-                                  ProjectModel(label: 'SAPS Project'),
-                                  context: context,
-                                  onTap: () {},
-                                ),
-                                LProjectCard(
-                                  ProjectModel(label: 'Operations VC'),
-                                  context: context,
-                                  onTap: () {},
-                                ),
-                                LProjectCard(
-                                  ProjectModel(label: 'Operations VC'),
-                                  context: context,
-                                  onTap: () {},
-                                ),
-                                LProjectCard(
-                                  ProjectModel(label: 'SAPS Project'),
-                                  context: context,
-                                  onTap: () {},
-                                ),
-                                LProjectCard(
-                                  ProjectModel(label: 'Operations VC'),
-                                  context: context,
-                                  onTap: () {},
-                                ),
+                                for (ProjectModel project
+                                    in store.projects.take(5))
+                                  LProjectCard(
+                                    project,
+                                    context: context,
+                                    onTap: () {
+                                      App.pushPageRoute(
+                                        ProjectFragment(project: project),
+                                        fullscreenDialog: true,
+                                      );
+                                    },
+                                  ),
                               ],
                             ),
                           ),
@@ -335,20 +284,14 @@ class _HomeFragmentState extends State<HomeFragment> {
                                 parent: BouncingScrollPhysics(),
                               ),
                               children: <Widget>[
-                                LProjectCard(
-                                  ProjectModel(
-                                    label: 'Market research product testing',
+                                for (SurveyModel survey
+                                    in store.surveys.take(5))
+                                  LSurveyCard(
+                                    survey,
+                                    context: context,
+                                    iconData: Icons.assignment,
+                                    iconColor: LColors.purpleColor,
                                   ),
-                                  context: context,
-                                  iconData: Icons.assignment,
-                                  iconColor: LColors.purpleColor,
-                                ),
-                                LProjectCard(
-                                  ProjectModel(label: 'Operations VC'),
-                                  context: context,
-                                  iconData: Icons.assignment,
-                                  iconColor: LColors.purpleColor,
-                                ),
                               ],
                             ),
                           ),

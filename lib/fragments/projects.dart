@@ -2,7 +2,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lime_mobile_app/components/card.dart';
 import 'package:lime_mobile_app/components/scaffold.dart';
+import 'package:lime_mobile_app/main.dart';
 import 'package:lime_mobile_app/models/project.dart';
+import 'package:lime_mobile_app/models/store.dart';
+import 'package:lime_mobile_app/views/project.dart';
+import 'package:provider/provider.dart';
 
 class ProjectsFragment extends StatefulWidget {
   ProjectsFragment({Key key, this.onNavigate}) : super(key: key);
@@ -14,6 +18,7 @@ class ProjectsFragment extends StatefulWidget {
 }
 
 class _ProjectsFragmentState extends State<ProjectsFragment> {
+  StoreModel store;
   final ScrollController scrollController =
       ScrollController(keepScrollOffset: true);
 
@@ -22,20 +27,7 @@ class _ProjectsFragmentState extends State<ProjectsFragment> {
   @override
   void initState() {
     super.initState();
-    projects = [
-      ProjectModel(label: 'LAPL - Project SVO'),
-      ProjectModel(label: 'LAPL - Project SVO'),
-      ProjectModel(label: 'LAPL - Project SVO'),
-      ProjectModel(label: 'LAPL - Project SVO'),
-      ProjectModel(label: 'LAPL - Project SVO'),
-      ProjectModel(label: 'LAPL - Project SVO'),
-      ProjectModel(label: 'LAPL - Project SVO'),
-      ProjectModel(label: 'LAPL - Project SVO'),
-      ProjectModel(label: 'LAPL - Project SVO'),
-      ProjectModel(label: 'LAPL - Project SVO'),
-      ProjectModel(label: 'LAPL - Project SVO'),
-      ProjectModel(label: 'LAPL - Project SVO'),
-    ];
+    store = Provider.of<StoreModel>(App.navigatorKey.currentContext);
   }
 
   @override
@@ -80,13 +72,19 @@ class _ProjectsFragmentState extends State<ProjectsFragment> {
                         ],
                       ),
                     ),
-                    for (ProjectModel project in projects)
+                    for (ProjectModel project in store.projects)
                       LCheckCard(
                         project.checked,
                         (bool value) {
                           setState(() {
                             project.checked = value;
                           });
+                        },
+                        onTap: () {
+                          App.pushPageRoute(
+                            ProjectFragment(project: project),
+                            fullscreenDialog: true,
+                          );
                         },
                         label: project.label,
                         context: context,

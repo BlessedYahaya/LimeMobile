@@ -107,6 +107,53 @@ class LProjectCard extends LCard {
         );
 }
 
+class LSurveyCard extends LCard {
+  final SurveyModel survey;
+  final IconData iconData;
+  final Color iconColor;
+
+  LSurveyCard(
+    this.survey, {
+    Key key,
+    bool flush,
+    this.iconData = Icons.folder,
+    this.iconColor = LColors.grayColor,
+    @required BuildContext context,
+    GestureTapCallback onTap,
+  }) : super(
+          key: key,
+          flush: flush ?? false,
+          onTap: onTap,
+          child: LimitedBox(
+            maxWidth: 140,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(width: 140),
+                Icon(
+                  iconData,
+                  color: iconColor,
+                  size: 28,
+                ),
+                VSpace.md,
+                Text(
+                  '${survey.label}',
+                  style: Theme.of(context).textTheme.subtitle1.copyWith(
+                        fontFamily: Strings.app.font,
+                        fontWeight: FontWeight.w400,
+                      ),
+                  maxLines: 2,
+                  softWrap: true,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        );
+}
+
 class LButtonCard extends LCard {
   LButtonCard({
     Key key,
