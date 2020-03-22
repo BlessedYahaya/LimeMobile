@@ -134,7 +134,10 @@ class _ProjectViewState extends State<ProjectView>
                               children: <Widget>[
                                 Text(
                                   'Details',
-                                  style: Theme.of(context).textTheme.subtitle1,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      .copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 RichText(
                                   text: TextSpan(

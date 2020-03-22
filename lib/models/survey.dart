@@ -13,6 +13,7 @@ class SurveyModel {
   String dateCreated;
   String dateModified;
   String completionTime;
+  String note;
   bool active;
   List responses;
   List questions;
@@ -27,6 +28,7 @@ class SurveyModel {
     this.dateCreated = '',
     this.dateModified = '',
     this.completionTime = '',
+    this.note = '',
     this.active = false,
     this.responses = const [],
     this.collectors = const <CollectorModel>[],
@@ -44,4 +46,6 @@ class SurveyModel {
   String toString() {
     return '${toJson()}';
   }
+
+  bool get hasNote => note != null && note.isNotEmpty;
 }

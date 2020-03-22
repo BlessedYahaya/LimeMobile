@@ -124,7 +124,10 @@ class _HomeFragmentState extends State<HomeFragment> {
                         children: <Widget>[
                           Text(
                             'Recent Projects',
-                            style: Theme.of(context).textTheme.subtitle1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                .copyWith(fontWeight: FontWeight.bold),
                           ),
                           RichText(
                             text: TextSpan(
@@ -229,7 +232,10 @@ class _HomeFragmentState extends State<HomeFragment> {
                         children: <Widget>[
                           Text(
                             'Recent Surveys',
-                            style: Theme.of(context).textTheme.subtitle1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1
+                                .copyWith(fontWeight: FontWeight.bold),
                           ),
                           RichText(
                             text: TextSpan(

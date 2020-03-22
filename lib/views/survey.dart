@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:lime_mobile_app/components/button.dart';
 import 'package:lime_mobile_app/components/card.dart';
 import 'package:lime_mobile_app/components/scaffold.dart';
+import 'package:lime_mobile_app/main.dart';
 import 'package:lime_mobile_app/models/question.dart';
 import 'package:lime_mobile_app/models/survey.dart';
 import 'package:lime_mobile_app/utils.dart';
 import 'package:lime_mobile_app/values/colors.dart';
 import 'package:lime_mobile_app/values/spacing.dart';
+import 'package:lime_mobile_app/views/feedback.dart';
 
 class SurveyView extends StatefulWidget {
   final SurveyModel survey;
@@ -74,7 +76,11 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                               children: <Widget>[
                                 LMiniButton(
                                   'New Response',
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    App.pushPageRoute(
+                                      FeedbackView(survey: widget.survey),
+                                    );
+                                  },
                                   icon: Icon(Icons.add, size: 16),
                                 ),
                               ],
@@ -121,7 +127,10 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                               children: <Widget>[
                                 Text(
                                   'Details',
-                                  style: Theme.of(context).textTheme.subtitle1,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      .copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 RichText(
                                   text: TextSpan(
@@ -146,6 +155,23 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                           LSurveyDetailsCard(
                             widget.survey,
                             context: context,
+                          ),
+                          VSpace.md,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'Collectors',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      .copyWith(fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -178,11 +204,6 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           VSpace.md,
-                          LSurveySummaryCard(
-                            widget.survey,
-                            context: context,
-                            showProject: false,
-                          ),
                           Form(
                             key: _formKey,
                             child: Column(
@@ -195,6 +216,7 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                                   if (question is OpenQuestionModel)
                                     LOpenQuestionCard(
                                       question: question,
+                                      enabled: false,
                                       onChanged: (String value) {
                                         question.answer = value;
                                       },
@@ -209,6 +231,7 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                                     LQuestionCard(
                                       question: question,
                                       context: context,
+                                      enabled: false,
                                       index: widget.survey.questions
                                               .indexOf(question) +
                                           1,
@@ -224,11 +247,6 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                                       },
                                     ),
                                 ],
-                                LMiniButton(
-                                  'Submit',
-                                  icon: Icon(Icons.send, size: 16),
-                                  onPressed: () {},
-                                ),
                               ],
                             ),
                           ),

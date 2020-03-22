@@ -91,6 +91,8 @@ class LMiniButton extends StatefulWidget {
   final ButtonType type;
   final Widget icon;
   final VoidCallback onPressed;
+  final EdgeInsets padding;
+  final double elevation;
 
   const LMiniButton(
     this.text, {
@@ -98,6 +100,8 @@ class LMiniButton extends StatefulWidget {
     this.icon,
     @required this.onPressed,
     this.type = ButtonType.primary,
+    this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+    this.elevation = 8.0,
   }) : super(key: key);
 
   @override
@@ -105,8 +109,6 @@ class LMiniButton extends StatefulWidget {
 }
 
 class _LMiniButtonState extends State<LMiniButton> {
-  final double _elevation = 8.0;
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -116,9 +118,12 @@ class _LMiniButtonState extends State<LMiniButton> {
   Widget build(BuildContext context) {
     return platformWidget(
       android: Container(
-        margin:
-            EdgeInsets.symmetric(horizontal: _elevation, vertical: _elevation),
+        margin: EdgeInsets.symmetric(
+          horizontal: widget.elevation,
+          vertical: widget.elevation,
+        ),
         child: FlatButton(
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -132,14 +137,17 @@ class _LMiniButtonState extends State<LMiniButton> {
             ],
           ),
           color: getColor(),
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+          padding: widget.padding,
           disabledColor: getColor().withOpacity(0.3),
           highlightColor: getColor().withOpacity(0.5),
           onPressed: widget.onPressed,
         ),
       ),
       ios: Container(
-        margin: EdgeInsets.symmetric(horizontal: _elevation, vertical: 0),
+        margin: EdgeInsets.symmetric(
+          horizontal: widget.elevation,
+          vertical: widget.elevation,
+        ),
         child: Material(
           color: widget.onPressed == null
               ? getColor().withOpacity(0.3)
@@ -162,7 +170,7 @@ class _LMiniButtonState extends State<LMiniButton> {
             ),
             color: getColor(),
             minSize: 32,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+            padding: widget.padding,
             borderRadius: BorderRadius.circular(22.0),
             onPressed: widget.onPressed,
           ),
@@ -173,8 +181,9 @@ class _LMiniButtonState extends State<LMiniButton> {
 
   Color getColor() {
     switch (widget.type) {
-      case ButtonType.success:
       case ButtonType.accent:
+        return LColors.errorColor;
+      case ButtonType.success:
       case ButtonType.secondary:
       default:
         return LColors.primaryColor;

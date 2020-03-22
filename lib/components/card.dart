@@ -655,7 +655,9 @@ class LQuestionCard extends LCard {
     @required BuildContext context,
     @required int index,
     GestureTapCallback onTap,
-  }) : super(
+    bool enabled = true,
+  })  : assert(enabled != null),
+        super(
           key: key,
           onTap: onTap,
           child: LimitedBox(
@@ -696,7 +698,7 @@ class LQuestionCard extends LCard {
                       Radio<OptionModel>(
                         value: _option,
                         groupValue: question.answer,
-                        onChanged: onChanged,
+                        onChanged: !enabled ? null : onChanged,
                       ),
                       Expanded(
                         child: Text('${_option.label}', softWrap: true),
@@ -734,7 +736,9 @@ class LOpenQuestionCard extends LCard {
     @required BuildContext context,
     @required int index,
     GestureTapCallback onTap,
-  }) : super(
+    bool enabled = true,
+  })  : assert(enabled != null),
+        super(
           key: key,
           onTap: onTap,
           child: LimitedBox(
@@ -764,12 +768,14 @@ class LOpenQuestionCard extends LCard {
                       ),
                       VSpace.md,
                       LimitedBox(
-                          child: TextFormField(
-                        validator: validator,
-                        minLines: 3,
-                        maxLines: 3,
-                        onChanged: onChanged,
-                      )),
+                        child: TextFormField(
+                          enabled: enabled,
+                          validator: validator,
+                          minLines: 3,
+                          maxLines: 3,
+                          onChanged: onChanged,
+                        ),
+                      ),
                     ],
                   ),
                 ),
