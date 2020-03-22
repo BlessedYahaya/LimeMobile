@@ -30,10 +30,30 @@ class StoreModel extends ChangeNotifier {
           description:
               'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
           surveys: [
-            SurveyModel(active: true),
-            SurveyModel(),
-            SurveyModel(active: true),
-            SurveyModel(),
+            SurveyModel(
+              label: 'Market research product testing',
+              active: true,
+              dateModified: '12/01/2020',
+              responses: [1, 2, 3],
+              project: ProjectModel(
+                label: 'Operations VC',
+                country: 'Nigeria',
+                dateCreated: '10th of January 2020',
+                description:
+                    'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+              ),
+            ),
+            SurveyModel(
+              label: 'Customer satisfaction template',
+              dateModified: '12/01/2020',
+              project: ProjectModel(
+                label: 'Operations VC',
+                country: 'Nigeria',
+                dateCreated: '10th of January 2020',
+                description:
+                    'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+              ),
+            ),
           ]),
       ProjectModel(
           label: 'LAPL - Project SVG',
@@ -42,12 +62,43 @@ class StoreModel extends ChangeNotifier {
           description:
               'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
           surveys: [
-            SurveyModel(active: true),
-            SurveyModel(),
-            SurveyModel(active: true),
-            SurveyModel(),
-            SurveyModel(active: true),
-            SurveyModel(),
+            SurveyModel(
+              label: 'Market research product testing',
+              active: true,
+              dateModified: '12/01/2020',
+              responses: [1, 2, 3],
+              project: ProjectModel(
+                label: 'Operations VC',
+                country: 'Nigeria',
+                dateCreated: '10th of January 2020',
+                description:
+                    'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+              ),
+            ),
+            SurveyModel(
+              label: 'Customer satisfaction template',
+              dateModified: '12/01/2020',
+              project: ProjectModel(
+                label: 'Operations VC',
+                country: 'Nigeria',
+                dateCreated: '10th of January 2020',
+                description:
+                    'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+              ),
+            ),
+            SurveyModel(
+              label: 'Customer feedback',
+              active: true,
+              dateModified: '12/01/2020',
+              responses: [1, 2, 3, 4],
+              project: ProjectModel(
+                label: 'Operations VC',
+                country: 'Nigeria',
+                dateCreated: '10th of January 2020',
+                description:
+                    'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+              ),
+            ),
           ]),
       ProjectModel(
         label: 'SAPS Project',
@@ -56,21 +107,98 @@ class StoreModel extends ChangeNotifier {
         description:
             'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
         surveys: [
-          SurveyModel(active: true),
-          SurveyModel(),
-          SurveyModel(active: true),
-          SurveyModel(active: true),
-          SurveyModel(),
-          SurveyModel(active: true),
-          SurveyModel(),
+          SurveyModel(
+            label: 'Market research product testing',
+            active: true,
+            dateModified: '12/01/2020',
+            responses: [1, 2, 3],
+            project: ProjectModel(
+              label: 'Operations VC',
+              country: 'Nigeria',
+              dateCreated: '10th of January 2020',
+              description:
+                  'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+            ),
+          ),
+          SurveyModel(
+            label: 'Market research product testing',
+            active: true,
+            dateModified: '12/01/2020',
+            responses: [1, 2, 3],
+            project: ProjectModel(
+              label: 'Operations VC',
+              country: 'Nigeria',
+              dateCreated: '10th of January 2020',
+              description:
+                  'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+            ),
+          ),
+          SurveyModel(
+            label: 'Customer satisfaction template',
+            dateModified: '12/01/2020',
+            project: ProjectModel(
+              label: 'Operations VC',
+              country: 'Nigeria',
+              dateCreated: '10th of January 2020',
+              description:
+                  'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+            ),
+          ),
+          SurveyModel(
+            label: 'Customer feedback',
+            active: true,
+            dateModified: '12/01/2020',
+            responses: [1, 2, 3, 4],
+            project: ProjectModel(
+              label: 'Operations VC',
+              country: 'Nigeria',
+              dateCreated: '10th of January 2020',
+              description:
+                  'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+            ),
+          ),
         ],
       ),
     ];
 
     surveys = [
-      SurveyModel(label: 'Market research product testing', active: true),
-      SurveyModel(label: 'Operations VC'),
-      SurveyModel(label: 'Operations VC 2', active: true),
+      SurveyModel(
+        label: 'Market research product testing',
+        active: true,
+        dateModified: '12/01/2020',
+        responses: [1, 2, 3],
+        project: ProjectModel(
+          label: 'Operations VC',
+          country: 'Nigeria',
+          dateCreated: '10th of January 2020',
+          description:
+              'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+        ),
+      ),
+      SurveyModel(
+        label: 'Customer satisfaction template',
+        dateModified: '12/01/2020',
+        project: ProjectModel(
+          label: 'LAPL - Project SVG',
+          country: 'Nigeria',
+          dateCreated: '10th of January 2020',
+          description:
+              'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+        ),
+      ),
+      SurveyModel(
+        label: 'Customer feedback',
+        active: true,
+        dateModified: '12/01/2020',
+        responses: [1, 2, 3, 4],
+        project: ProjectModel(
+          label: 'SAPS Project',
+          country: 'Nigeria',
+          dateCreated: '10th of January 2020',
+          description:
+              'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
+        ),
+      ),
     ];
   }
 

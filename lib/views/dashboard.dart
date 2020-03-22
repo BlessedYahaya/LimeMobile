@@ -4,6 +4,7 @@ import 'package:lime_mobile_app/components/scaffold.dart';
 import 'package:lime_mobile_app/fragments/example.dart';
 import 'package:lime_mobile_app/fragments/home.dart';
 import 'package:lime_mobile_app/fragments/projects.dart';
+import 'package:lime_mobile_app/fragments/surveys.dart';
 import 'package:lime_mobile_app/main.dart';
 import 'package:lime_mobile_app/models/store.dart';
 import 'package:lime_mobile_app/utils.dart';
@@ -74,7 +75,7 @@ class _DashboardViewState extends State<DashboardView> {
     tabs = [
       HomeFragment(onNavigate: onTapped),
       ProjectsFragment(onNavigate: onTapped),
-      ExampleFragment(),
+      SurveysFragment(onNavigate: onTapped),
       ExampleFragment(),
     ];
   }

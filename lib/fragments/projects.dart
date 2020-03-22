@@ -22,7 +22,8 @@ class _ProjectsFragmentState extends State<ProjectsFragment> {
   final ScrollController scrollController =
       ScrollController(keepScrollOffset: true);
 
-  List<ProjectModel> projects;
+  List<ProjectModel> get selectedProjects =>
+      store.projects.where((ProjectModel p) => p.checked).toList();
 
   @override
   void initState() {
@@ -58,7 +59,8 @@ class _ProjectsFragmentState extends State<ProjectsFragment> {
                         children: <Widget>[
                           RichText(
                             text: TextSpan(
-                              text: 'Delete',
+                              text:
+                                  'Delete${selectedProjects.length == 0 ? '' : selectedProjects.length == 1 ? ' Project' : ' Projects'}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
@@ -66,7 +68,11 @@ class _ProjectsFragmentState extends State<ProjectsFragment> {
                                     color: Theme.of(context).errorColor,
                                     decoration: TextDecoration.underline,
                                   ),
-                              recognizer: TapGestureRecognizer()..onTap = () {},
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  // TODO: show some dialog
+                                  print('TODO');
+                                },
                             ),
                           ),
                         ],
@@ -82,7 +88,7 @@ class _ProjectsFragmentState extends State<ProjectsFragment> {
                         },
                         onTap: () {
                           App.pushPageRoute(
-                            ProjectFragment(project: project),
+                            ProjectView(project: project),
                             fullscreenDialog: true,
                           );
                         },

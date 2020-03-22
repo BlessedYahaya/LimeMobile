@@ -187,7 +187,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                     context: context,
                                     onTap: () {
                                       App.pushPageRoute(
-                                        ProjectFragment(project: project),
+                                        ProjectView(project: project),
                                         fullscreenDialog: true,
                                       );
                                     },

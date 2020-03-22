@@ -372,7 +372,9 @@ class LSurveySummaryCard extends LCard {
     Key key,
     @required BuildContext context,
     GestureTapCallback onTap,
-  }) : super(
+    bool showProject = true,
+  })  : assert(showProject != null),
+        super(
           key: key,
           onTap: onTap,
           child: LimitedBox(
@@ -395,7 +397,7 @@ class LSurveySummaryCard extends LCard {
                             ),
                         softWrap: true,
                       ),
-                      if (survey.project != null) ...[
+                      if (showProject && survey.project != null) ...[
                         VSpace.xs,
                         Row(
                           children: <Widget>[

@@ -20,6 +20,10 @@ ThemeData baseTheme(BuildContext context) => ThemeData(
         ),
         elevation: 3,
       ),
+      tabBarTheme: TabBarTheme.of(context).copyWith(
+        labelColor: Colors.white,
+        unselectedLabelColor: Colors.black,
+      ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: LColors.ashColor,
@@ -64,5 +68,9 @@ ThemeData darkTheme(BuildContext context) => baseTheme(context).copyWith(
         ),
         iconTheme: IconThemeData(color: Colors.white),
         actionsIconTheme: IconThemeData(color: Colors.white),
+      ),
+      tabBarTheme: TabBarTheme.of(context).copyWith(
+        labelColor: Colors.white,
+        unselectedLabelColor: Colors.white70,
       ),
     );
