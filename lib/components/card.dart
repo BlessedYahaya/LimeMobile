@@ -165,10 +165,15 @@ class LButtonCard extends LCard {
     Widget leading,
     Widget trailing,
     String label,
+    RoundedRectangleBorder shape = const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(const Radius.circular(10)),
+      side: BorderSide(color: LColors.primaryColor, width: 1.5),
+    ),
   }) : super(
           key: key,
           color: color,
           onTap: onTap,
+          shape: shape,
           child: LimitedBox(
             maxHeight: 40,
             child: Column(
@@ -737,10 +742,16 @@ class LOpenQuestionCard extends LCard {
     @required int index,
     GestureTapCallback onTap,
     bool enabled = true,
+    RoundedRectangleBorder shape = const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(const Radius.circular(10)),
+      side: BorderSide(color: LColors.primaryColor, width: 1.5),
+    ),
   })  : assert(enabled != null),
+        assert(shape != null),
         super(
           key: key,
           onTap: onTap,
+          shape: shape,
           child: LimitedBox(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,

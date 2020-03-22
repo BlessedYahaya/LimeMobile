@@ -5,6 +5,7 @@ import 'package:lime_mobile_app/components/scaffold.dart';
 import 'package:lime_mobile_app/models/question.dart';
 import 'package:lime_mobile_app/models/survey.dart';
 import 'package:lime_mobile_app/utils.dart';
+import 'package:lime_mobile_app/values/colors.dart';
 import 'package:lime_mobile_app/values/spacing.dart';
 
 class FeedbackView extends StatefulWidget {
@@ -79,19 +80,22 @@ class _FeedbackViewState extends State<FeedbackView>
                           padding: const EdgeInsets.symmetric(
                             horizontal: 16.0,
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Note details',
-                                style: Theme.of(context).textTheme.subtitle1,
-                                softWrap: true,
-                              ),
-                            ],
+                          child: Text(
+                            'Note details',
+                            style: Theme.of(context).textTheme.subtitle1,
+                            softWrap: true,
                           ),
                         ),
                         LCard(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              const Radius.circular(10),
+                            ),
+                            side: BorderSide(
+                              color: LColors.grayColor.withOpacity(0.3),
+                              width: 1.5,
+                            ),
+                          ),
                           child: LimitedBox(
                             child: Form(
                               key: _formKeyNote,
@@ -142,7 +146,7 @@ class _FeedbackViewState extends State<FeedbackView>
                                   ),
                                   VSpace.md,
                                   LMiniButton(
-                                    'Save Note',
+                                    '${widget.survey.hasNote ? 'Update' : 'Save'} Note',
                                     elevation: 0,
                                     onPressed: () {
                                       if (_formKeyNote.currentState

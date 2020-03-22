@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lime_mobile_app/components/scaffold.dart';
-import 'package:lime_mobile_app/fragments/example.dart';
 import 'package:lime_mobile_app/fragments/home.dart';
+import 'package:lime_mobile_app/fragments/profile.dart';
 import 'package:lime_mobile_app/fragments/projects.dart';
 import 'package:lime_mobile_app/fragments/surveys.dart';
 import 'package:lime_mobile_app/main.dart';
@@ -76,7 +76,7 @@ class _DashboardViewState extends State<DashboardView> {
       HomeFragment(onNavigate: onTapped),
       ProjectsFragment(onNavigate: onTapped),
       SurveysFragment(onNavigate: onTapped),
-      ExampleFragment(),
+      ProfileFragment(onNavigate: onTapped),
     ];
   }
 
