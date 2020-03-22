@@ -6,23 +6,6 @@ part of 'question.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-QuestionModel _$QuestionModelFromJson(Map json) {
-  return QuestionModel(
-    id: json['id'] as int,
-    surveyID: json['surveyID'] as int,
-    question: json['question'] as String,
-    message: json['message'] as String,
-  );
-}
-
-Map<String, dynamic> _$QuestionModelToJson(QuestionModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'surveyID': instance.surveyID,
-      'question': instance.question,
-      'message': instance.message,
-    };
-
 MultiChoiceQuestionModel _$MultiChoiceQuestionModelFromJson(Map json) {
   return MultiChoiceQuestionModel(
     id: json['id'] as int,

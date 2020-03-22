@@ -2,25 +2,13 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'question.g.dart';
 
-@JsonSerializable(explicitToJson: true, anyMap: true)
-class QuestionModel {
+abstract class QuestionModel {
   int id;
   int surveyID;
   String question;
   String message;
 
   QuestionModel({this.id, this.surveyID, this.question = '', this.message});
-
-  static final QuestionModel zero = QuestionModel();
-
-  factory QuestionModel.fromJson(Map user) => _$QuestionModelFromJson(user);
-
-  Map<String, dynamic> toJson() => _$QuestionModelToJson(this);
-
-  @override
-  String toString() {
-    return '${toJson()}';
-  }
 }
 
 @JsonSerializable(explicitToJson: true, anyMap: true)

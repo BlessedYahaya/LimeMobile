@@ -190,7 +190,7 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisSize: MainAxisSize.max,
                               children: <Widget>[
-                                for (QuestionModel question
+                                for (var question
                                     in widget.survey.questions) ...[
                                   if (question is OpenQuestionModel)
                                     LOpenQuestionCard(
