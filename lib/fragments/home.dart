@@ -1,13 +1,17 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lime_mobile_app/components/card.dart';
 import 'package:lime_mobile_app/components/scaffold.dart';
+import 'package:lime_mobile_app/main.dart';
 import 'package:lime_mobile_app/models/project.dart';
+import 'package:lime_mobile_app/models/store.dart';
 import 'package:lime_mobile_app/values/colors.dart';
 import 'package:lime_mobile_app/values/spacing.dart';
 import 'package:lime_mobile_app/values/strings.dart';
+import 'package:provider/provider.dart';
 
 class HomeFragment extends StatefulWidget {
   HomeFragment({Key key, this.onNavigate}) : super(key: key);
@@ -19,10 +23,18 @@ class HomeFragment extends StatefulWidget {
 }
 
 class _HomeFragmentState extends State<HomeFragment> {
+  StoreModel store;
   final ScrollController projectsController =
       ScrollController(keepScrollOffset: true);
   final ScrollController surveysController =
       ScrollController(keepScrollOffset: true);
+
+  @override
+  void initState() {
+    super.initState();
+
+    store = Provider.of<StoreModel>(App.navigatorKey.currentContext);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +54,36 @@ class _HomeFragmentState extends State<HomeFragment> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: <Widget>[
+                    VSpace.md,
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          width: 32,
+                          height: 32,
+                          margin: EdgeInsets.symmetric(horizontal: 8),
+                          child: CircleAvatar(
+                            child: (store.user.picture == null ||
+                                    store.user.picture.isEmpty)
+                                ? Icon(
+                                    Icons.person,
+                                    color: Colors.grey,
+                                    size: 16,
+                                  )
+                                : null,
+                            backgroundColor: LColors.purpleColor,
+                            backgroundImage: (store.user.picture == null ||
+                                    store.user.picture.isEmpty)
+                                ? null
+                                : MemoryImage(store.picture),
+                          ),
+                        ),
+                        Text('Hello, ${store.user.firstName}'),
+                      ],
+                    ),
+                    VSpace.md,
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

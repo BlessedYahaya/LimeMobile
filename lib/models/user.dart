@@ -7,8 +7,9 @@ class UserModel {
   int id;
   String firstName;
   String lastName;
+  String picture;
 
-  UserModel({this.id, this.firstName = '', this.lastName = ''});
+  UserModel({this.id, this.firstName = '', this.lastName = '', this.picture});
 
   static final UserModel zero = UserModel();
 
