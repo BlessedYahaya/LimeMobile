@@ -1,27 +1,24 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:lime_mobile_app/components/button.dart';
 import 'package:lime_mobile_app/components/card.dart';
 import 'package:lime_mobile_app/components/scaffold.dart';
-import 'package:lime_mobile_app/main.dart';
-import 'package:lime_mobile_app/models/project.dart';
 import 'package:lime_mobile_app/models/survey.dart';
 import 'package:lime_mobile_app/values/colors.dart';
 import 'package:lime_mobile_app/values/spacing.dart';
-import 'package:lime_mobile_app/views/survey.dart';
 
-class ProjectView extends StatefulWidget {
-  final ProjectModel project;
+class SurveyView extends StatefulWidget {
+  final SurveyModel survey;
 
-  ProjectView({Key key, this.project})
-      : assert(project != null),
+  SurveyView({Key key, this.survey})
+      : assert(survey != null),
         super(key: key);
 
   @override
-  _ProjectViewState createState() => _ProjectViewState();
+  _SurveyViewState createState() => _SurveyViewState();
 }
 
-class _ProjectViewState extends State<ProjectView>
-    with TickerProviderStateMixin {
+class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
   TabController tabCtrl;
 
   @override
@@ -34,7 +31,7 @@ class _ProjectViewState extends State<ProjectView>
   Widget build(BuildContext context) {
     return LScaffold(
       appBar: AppBar(
-        title: Text('${widget.project.label}'),
+        title: Text('${widget.survey.label}'),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.search), onPressed: () {})
         ],
@@ -47,7 +44,7 @@ class _ProjectViewState extends State<ProjectView>
           },
           tabs: [
             Tab(text: 'Summary'),
-            Tab(text: 'Surveys'),
+            Tab(text: 'Preview'),
           ],
         ),
       ),
@@ -68,27 +65,14 @@ class _ProjectViewState extends State<ProjectView>
                         children: <Widget>[
                           VSpace.md,
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(bottom: 16.0),
                             child: Row(
-                              mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
-                                RichText(
-                                  text: TextSpan(
-                                    text: 'Delete Project',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .copyWith(
-                                          color: Theme.of(context).errorColor,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        // TODO: show some dialog
-                                        print('TODO');
-                                      },
-                                  ),
+                                LMiniButton(
+                                  'New Response',
+                                  onPressed: () {},
+                                  icon: Icon(Icons.add, size: 16),
                                 ),
                               ],
                             ),
@@ -98,29 +82,29 @@ class _ProjectViewState extends State<ProjectView>
                             children: <Widget>[
                               Expanded(
                                 child: LSummaryCard(
-                                  label: 'Total\nSurveys',
+                                  label: 'Total Responses',
                                   context: context,
                                   color: LColors.primaryLightColor,
                                   value:
-                                      '${widget.project.surveys?.length ?? 0}',
+                                      '${widget.survey.responses?.length ?? 0}',
                                 ),
                               ),
                               Expanded(
                                 child: LSummaryCard(
-                                  label: 'Active Surveys',
+                                  label: 'Survey Status',
                                   context: context,
                                   color: LColors.primaryLightColor,
                                   value:
-                                      '${widget.project.activeSurveys?.length ?? 0}',
+                                      '${(widget.survey.active ?? false) ? 'Active' : 'Draft'}',
                                 ),
                               ),
                               Expanded(
                                 child: LSummaryCard(
-                                  label: 'Draft Surveys',
+                                  label: 'Collectors',
                                   context: context,
                                   color: LColors.primaryLightColor,
                                   value:
-                                      '${widget.project.draftSurveys?.length ?? 0}',
+                                      '${widget.survey.collectors?.length ?? 0}',
                                 ),
                               ),
                             ],
@@ -156,9 +140,18 @@ class _ProjectViewState extends State<ProjectView>
                               ],
                             ),
                           ),
-                          LProjectDetailsCard(
-                            widget.project,
+                          LSurveyDetailsCard(
+                            widget.survey,
                             context: context,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              LSurveyCollectorsCard(
+                                widget.survey,
+                                context: context,
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -180,15 +173,11 @@ class _ProjectViewState extends State<ProjectView>
                       child: Column(
                         children: <Widget>[
                           VSpace.md,
-                          for (SurveyModel survey in widget.project.surveys)
-                            LSurveySummaryCard(
-                              survey,
-                              context: context,
-                              showProject: false,
-                              onTap: () {
-                                App.pushPageRoute(SurveyView(survey: survey));
-                              },
-                            ),
+                          LSurveySummaryCard(
+                            widget.survey,
+                            context: context,
+                            showProject: false,
+                          ),
                         ],
                       ),
                     ),

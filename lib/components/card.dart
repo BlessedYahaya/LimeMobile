@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lime_mobile_app/models/collector.dart';
 import 'package:lime_mobile_app/models/project.dart';
 import 'package:lime_mobile_app/models/question.dart';
 import 'package:lime_mobile_app/models/survey.dart';
@@ -246,8 +247,11 @@ class LSummaryCard extends LCard {
                   style: TextStyle(
                     fontFamily: Strings.app.font,
                     fontWeight: FontWeight.w700,
-                    fontSize: 24,
-                    height: 1.33,
+                    fontSize: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .apply(fontSizeFactor: 1.4)
+                        .fontSize,
                     color: LColors.grayColor,
                   ),
                 ),
@@ -603,41 +607,37 @@ class LSurveyCollectorsCard extends LCard {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  'Live Survey:',
-                  style: Theme.of(context).textTheme.caption.copyWith(
-                        fontFamily: Strings.app.font,
-                        fontWeight: FontWeight.w400,
-                        color: LColors.primaryColor,
-                      ),
-                ),
-                VSpace.sm,
-                Text(
-                  '${survey.responses?.length ?? '0'} response${survey.responses?.length == 1 ? '' : 's'}',
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        fontFamily: Strings.app.font,
-                        fontWeight: FontWeight.w500,
-                      ),
-                  softWrap: true,
-                ),
-                Divider(),
-                Text(
-                  'Link Sharing:',
-                  style: Theme.of(context).textTheme.caption.copyWith(
-                        fontFamily: Strings.app.font,
-                        fontWeight: FontWeight.w400,
-                        color: LColors.primaryColor,
-                      ),
-                ),
-                VSpace.sm,
-                Text(
-                  '${survey.responses?.length ?? 0} response${survey.responses?.length == 1 ? '' : 's'}',
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        fontFamily: Strings.app.font,
-                        fontWeight: FontWeight.w500,
-                      ),
-                  softWrap: true,
-                ),
+                if ((survey.collectors?.length ?? 0) == 0)
+                  Text(
+                    'There are no collectors.',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .copyWith(color: Theme.of(context).errorColor),
+                  ),
+                if ((survey.collectors?.length ?? 0) > 0)
+                  for (CollectorModel collector in survey.collectors) ...[
+                    Text(
+                      '${collector.label}:',
+                      style: Theme.of(context).textTheme.caption.copyWith(
+                            fontFamily: Strings.app.font,
+                            fontWeight: FontWeight.w400,
+                            color: LColors.primaryColor,
+                          ),
+                    ),
+                    VSpace.sm,
+                    Text(
+                      '${collector.responses?.length ?? '0'} response${survey.responses?.length == 1 ? '' : 's'}',
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            fontFamily: Strings.app.font,
+                            fontWeight: FontWeight.w500,
+                          ),
+                      softWrap: true,
+                    ),
+                    if (survey.collectors.indexOf(collector) <
+                        survey.collectors.length - 1)
+                      Divider(),
+                  ],
               ],
             ),
           ),

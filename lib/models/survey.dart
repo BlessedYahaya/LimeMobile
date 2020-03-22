@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lime_mobile_app/models/collector.dart';
 import 'package:lime_mobile_app/models/project.dart';
 import 'package:lime_mobile_app/models/question.dart';
 
@@ -16,6 +17,7 @@ class SurveyModel {
   bool active;
   List responses;
   List<QuestionModel> questions;
+  List<CollectorModel> collectors;
   ProjectModel project;
 
   SurveyModel({
@@ -28,6 +30,7 @@ class SurveyModel {
     this.completionTime = '',
     this.active = false,
     this.responses = const [],
+    this.collectors = const <CollectorModel>[],
     this.questions = const <QuestionModel>[],
     this.project,
   });

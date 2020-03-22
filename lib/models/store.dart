@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:lime_mobile_app/models/collector.dart';
 import 'package:lime_mobile_app/models/project.dart';
+import 'package:lime_mobile_app/models/question.dart';
 import 'package:lime_mobile_app/models/survey.dart';
 import 'package:lime_mobile_app/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -165,7 +167,9 @@ class StoreModel extends ChangeNotifier {
       SurveyModel(
         label: 'Market research product testing',
         active: true,
+        dateCreated: '12/01/2020',
         dateModified: '12/01/2020',
+        completionTime: '2 mins',
         responses: [1, 2, 3],
         project: ProjectModel(
           label: 'Operations VC',
@@ -174,10 +178,34 @@ class StoreModel extends ChangeNotifier {
           description:
               'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
         ),
+        questions: [
+          QuestionModel(
+            question: 'What do you think about Product A?',
+            options: [
+              OptionModel(id: 1, label: 'I love it'),
+              OptionModel(id: 2, label: 'I hate it'),
+              OptionModel(id: 3, label: 'I\’m indifferent'),
+            ],
+          ),
+          QuestionModel(
+            question: 'What do you think about Product A?',
+            options: [
+              OptionModel(id: 1, label: 'I love it'),
+              OptionModel(id: 2, label: 'I hate it'),
+              OptionModel(id: 3, label: 'I\’m indifferent'),
+            ],
+          ),
+        ],
+        collectors: [
+          CollectorModel(label: 'Live Survey', responses: [1, 2, 3, 4]),
+          CollectorModel(label: 'Link Sharing', responses: [1, 2]),
+        ],
       ),
       SurveyModel(
         label: 'Customer satisfaction template',
+        dateCreated: '12/01/2020',
         dateModified: '12/01/2020',
+        completionTime: '2 mins',
         project: ProjectModel(
           label: 'LAPL - Project SVG',
           country: 'Nigeria',
@@ -185,11 +213,35 @@ class StoreModel extends ChangeNotifier {
           description:
               'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
         ),
+        questions: [
+          QuestionModel(
+            question: 'What do you think about Product A?',
+            options: [
+              OptionModel(id: 1, label: 'I love it'),
+              OptionModel(id: 2, label: 'I hate it'),
+              OptionModel(id: 3, label: 'I\’m indifferent'),
+            ],
+          ),
+          QuestionModel(
+            question: 'What do you think about Product A?',
+            options: [
+              OptionModel(id: 1, label: 'I love it'),
+              OptionModel(id: 2, label: 'I hate it'),
+              OptionModel(id: 3, label: 'I\’m indifferent'),
+            ],
+          ),
+        ],
+        collectors: [
+          CollectorModel(label: 'Live Survey', responses: [1, 2, 3, 4]),
+          CollectorModel(label: 'Link Sharing', responses: [1, 2]),
+        ],
       ),
       SurveyModel(
         label: 'Customer feedback',
         active: true,
+        dateCreated: '12/01/2020',
         dateModified: '12/01/2020',
+        completionTime: '2 mins',
         responses: [1, 2, 3, 4],
         project: ProjectModel(
           label: 'SAPS Project',
@@ -198,6 +250,28 @@ class StoreModel extends ChangeNotifier {
           description:
               'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
         ),
+        questions: [
+          QuestionModel(
+            question: 'What do you think about Product A?',
+            options: [
+              OptionModel(id: 1, label: 'I love it'),
+              OptionModel(id: 2, label: 'I hate it'),
+              OptionModel(id: 3, label: 'I\’m indifferent'),
+            ],
+          ),
+          QuestionModel(
+            question: 'What do you think about Product A?',
+            options: [
+              OptionModel(id: 1, label: 'I love it'),
+              OptionModel(id: 2, label: 'I hate it'),
+              OptionModel(id: 3, label: 'I\’m indifferent'),
+            ],
+          ),
+        ],
+        collectors: [
+          CollectorModel(label: 'Live Survey', responses: [1, 2, 3, 4]),
+          CollectorModel(label: 'Link Sharing', responses: [1, 2]),
+        ],
       ),
     ];
   }

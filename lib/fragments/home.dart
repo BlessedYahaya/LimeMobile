@@ -13,6 +13,7 @@ import 'package:lime_mobile_app/values/colors.dart';
 import 'package:lime_mobile_app/values/spacing.dart';
 import 'package:lime_mobile_app/values/strings.dart';
 import 'package:lime_mobile_app/views/project.dart';
+import 'package:lime_mobile_app/views/survey.dart';
 import 'package:provider/provider.dart';
 
 class HomeFragment extends StatefulWidget {
@@ -291,6 +292,12 @@ class _HomeFragmentState extends State<HomeFragment> {
                                     context: context,
                                     iconData: Icons.assignment,
                                     iconColor: LColors.purpleColor,
+                                    onTap: () {
+                                      App.pushPageRoute(
+                                        SurveyView(survey: survey),
+                                        fullscreenDialog: true,
+                                      );
+                                    },
                                   ),
                               ],
                             ),

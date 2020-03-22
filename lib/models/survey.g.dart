@@ -23,7 +23,9 @@ SurveyModel _$SurveyModelFromJson(Map json) {
     project: json['project'] == null
         ? null
         : ProjectModel.fromJson(json['project'] as Map),
-  );
+  )..collectors = (json['collectors'] as List)
+      ?.map((e) => e == null ? null : CollectorModel.fromJson(e as Map))
+      ?.toList();
 }
 
 Map<String, dynamic> _$SurveyModelToJson(SurveyModel instance) =>
@@ -38,5 +40,6 @@ Map<String, dynamic> _$SurveyModelToJson(SurveyModel instance) =>
       'active': instance.active,
       'responses': instance.responses,
       'questions': instance.questions?.map((e) => e?.toJson())?.toList(),
+      'collectors': instance.collectors?.map((e) => e?.toJson())?.toList(),
       'project': instance.project?.toJson(),
     };

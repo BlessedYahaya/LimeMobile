@@ -5,6 +5,7 @@ import 'package:lime_mobile_app/main.dart';
 import 'package:lime_mobile_app/models/store.dart';
 import 'package:lime_mobile_app/models/survey.dart';
 import 'package:lime_mobile_app/values/spacing.dart';
+import 'package:lime_mobile_app/views/survey.dart';
 import 'package:provider/provider.dart';
 
 class SurveysFragment extends StatefulWidget {
@@ -49,6 +50,12 @@ class _SurveysFragmentState extends State<SurveysFragment> {
                         LSurveySummaryCard(
                           survey,
                           context: context,
+                          onTap: () {
+                            App.pushPageRoute(
+                              SurveyView(survey: survey),
+                              fullscreenDialog: true,
+                            );
+                          },
                         ),
                     ],
                   ),
