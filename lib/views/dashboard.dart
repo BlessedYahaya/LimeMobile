@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lime_mobile_app/components/scaffold.dart';
 import 'package:lime_mobile_app/fragments/home.dart';
 import 'package:lime_mobile_app/fragments/profile.dart';
@@ -8,6 +9,7 @@ import 'package:lime_mobile_app/fragments/surveys.dart';
 import 'package:lime_mobile_app/main.dart';
 import 'package:lime_mobile_app/models/store.dart';
 import 'package:lime_mobile_app/utils.dart';
+import 'package:lime_mobile_app/values/spacing.dart';
 import 'package:lime_mobile_app/values/strings.dart';
 import 'package:provider/provider.dart';
 
@@ -87,13 +89,46 @@ class _DashboardViewState extends State<DashboardView> {
 
   @override
   Widget build(BuildContext context) {
-    return LTabScaffold(
-      context: context,
-      body: tabs[currentTabIndex],
-      currentIndex: currentTabIndex,
-      items: items,
-      onTap: onTapped,
-      top: false,
+    return WillPopScope(
+      onWillPop: () async {
+        if (currentTabIndex != 0) {
+          onTapped(0);
+          return false;
+        }
+
+        return await showDialog<bool>(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Do you want to quit?'),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Yes'),
+                  onPressed: () {
+                    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                  },
+                ),
+                RaisedButton(
+                  child: Text('No'),
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+                HSpace.xs,
+              ],
+            );
+          },
+        );
+      },
+      child: LTabScaffold(
+        context: context,
+        body: tabs[currentTabIndex],
+        currentIndex: currentTabIndex,
+        items: items,
+        onTap: onTapped,
+        top: false,
+      ),
     );
   }
 
