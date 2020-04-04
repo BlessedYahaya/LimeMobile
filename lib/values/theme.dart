@@ -20,6 +20,12 @@ ThemeData baseTheme(BuildContext context) => ThemeData(
         ),
         elevation: 3,
       ),
+      dialogTheme: DialogTheme.of(context).copyWith(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: BorderSide(color: Color(0x0FFEDF2F7), width: 1),
+        ),
+      ),
       tabBarTheme: TabBarTheme.of(context).copyWith(
         labelColor: Colors.white,
         unselectedLabelColor: Colors.black,
