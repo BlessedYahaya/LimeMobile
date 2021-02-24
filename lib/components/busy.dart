@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class BusyWidget extends StatelessWidget {
   final Widget child;
   final bool busy;
-  BusyWidget({@required this.child, @required this.busy})
+  final String msg;
+  BusyWidget({@required this.child, @required this.busy,this.msg = 'Loading...'})
       : assert(busy != null && child != null);
 
   @override
@@ -19,7 +20,7 @@ class BusyWidget extends StatelessWidget {
                         dismissible: false,
                         color: Colors.black.withOpacity(0.5)),
                     Center(
-                      child: Text('Loading...',
+                      child: Text('$msg',
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: 16,

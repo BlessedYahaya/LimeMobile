@@ -94,8 +94,7 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                                   label: 'Total Responses',
                                   context: context,
                                   color: LColors.primaryLightColor,
-                                  value:
-                                      '${widget.survey.responses ?? 0}',
+                                  value: '${widget.survey.responses ?? 0}',
                                 ),
                               ),
                               Expanded(
@@ -211,12 +210,12 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisSize: MainAxisSize.max,
                               children: <Widget>[
+                                if(widget.survey.questions != null)
                                 for (var question
-                                    in widget.survey.questions) ...[
+                                    in widget.survey?.questions) ...[
                                   if (question is OpenQuestionModel)
                                     LOpenQuestionCard(
                                       question: question,
-                                      enabled: false,
                                       onChanged: (String value) {
                                         question.answer = value;
                                       },
@@ -231,7 +230,6 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                                     LQuestionCard(
                                       question: question,
                                       context: context,
-                                      enabled: false,
                                       index: widget.survey.questions
                                               .indexOf(question) +
                                           1,

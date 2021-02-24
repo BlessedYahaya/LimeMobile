@@ -550,7 +550,7 @@ class LSurveyDetailsCard extends LCard {
                 ),
                 VSpace.sm,
                 Text(
-                  '${DateFormat.yMEd().format(DateTime.parse(survey.dateCreated))}',
+                  '${survey.dateCreated != null ? DateFormat.yMEd().format(DateTime.parse(survey.dateCreated)) : '-'}',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontFamily: Strings.app.font,
                         fontWeight: FontWeight.w500,
@@ -567,7 +567,7 @@ class LSurveyDetailsCard extends LCard {
                 ),
                 VSpace.sm,
                 Text(
-                  '${DateFormat.yMEd().format(DateTime.parse(survey.dateModified))}',
+                  '${survey.dateModified != null ? DateFormat.yMEd().format(DateTime.parse(survey.dateModified)) : '-'}',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontFamily: Strings.app.font,
                         fontWeight: FontWeight.w500,
@@ -584,7 +584,7 @@ class LSurveyDetailsCard extends LCard {
                 ),
                 VSpace.sm,
                 Text(
-                  '${survey.completionTime != null ? DateFormat.yMEd().format(DateTime.parse(survey.completionTime)): '-'}',
+                  '${survey.completionTime != null ? DateFormat.yMEd().format(DateTime.parse(survey.completionTime)) : '-'}',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontFamily: Strings.app.font,
                         fontWeight: FontWeight.w500,

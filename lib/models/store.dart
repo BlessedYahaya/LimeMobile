@@ -3,12 +3,15 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:lime/api/projects.dart';
 import 'package:lime/api/surveys.dart';
+import 'package:lime/components/toast.dart';
+import 'package:lime/main.dart';
 import 'package:lime/models/project.dart';
 import 'package:lime/models/question.dart';
 import 'package:lime/models/response/projects.dart';
 import 'package:lime/models/response/surveys.dart';
 import 'package:lime/models/survey.dart';
 import 'package:lime/models/user.dart';
+import 'package:lime/views/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StoreModel extends ChangeNotifier {
@@ -22,104 +25,6 @@ class StoreModel extends ChangeNotifier {
 
     user = UserModel.zero;
     env = {};
-    //   ProjectModel(
-    //     label: 'SAPS Project',
-    //     country: 'Nigeria',
-    //     dateCreated: '10th of January 2020',
-    //     description:
-    //         'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
-    //     surveys: [
-    //       SurveyModel(
-    //         label: 'Market research product testing',
-    //         active: true,
-    //         dateModified: '12/01/2020',
-    //         responses: [1, 2, 3],
-    //         project: ProjectModel(
-    //           label: 'Operations VC',
-    //           country: 'Nigeria',
-    //           dateCreated: '10th of January 2020',
-    //           description:
-    //               'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
-    //         ),
-    //       ),
-    //       SurveyModel(
-    //         label: 'Market research product testing',
-    //         active: true,
-    //         dateModified: '12/01/2020',
-    //         responses: [1, 2, 3],
-    //         project: ProjectModel(
-    //           label: 'Operations VC',
-    //           country: 'Nigeria',
-    //           dateCreated: '10th of January 2020',
-    //           description:
-    //               'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
-    //         ),
-    //       ),
-    //       SurveyModel(
-    //         label: 'Customer satisfaction template',
-    //         dateModified: '12/01/2020',
-    //         project: ProjectModel(
-    //           label: 'Operations VC',
-    //           country: 'Nigeria',
-    //           dateCreated: '10th of January 2020',
-    //           description:
-    //               'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
-    //         ),
-    //       ),
-    //       SurveyModel(
-    //         label: 'Customer feedback',
-    //         active: true,
-    //         dateModified: '12/01/2020',
-    //         responses: [1, 2, 3, 4],
-    //         project: ProjectModel(
-    //           label: 'Operations VC',
-    //           country: 'Nigeria',
-    //           dateCreated: '10th of January 2020',
-    //           description:
-    //               'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
-    //         ),
-    //       ),
-    //     ],
-    //   )
-
-    // SurveyModel(
-    //   label: 'Customer feedback',
-    //   active: true,
-    //   dateCreated: '12/01/2020',
-    //   dateModified: '12/01/2020',
-    //   completionTime: '2 mins',
-    //   responses: [1, 2, 3, 4],
-    //   project: ProjectModel(
-    //     label: 'SAPS Project',
-    //     country: 'Nigeria',
-    //     dateCreated: '10th of January 2020',
-    //     description:
-    //         'The project is to ascetain the custlomer satisfaction level of the clients of SAPS',
-    //   ),
-    //   questions: [
-    //     OpenQuestionModel(question: 'What do you think about Product A?'),
-    //     MultiChoiceQuestionModel(
-    //       question: 'What do you think about Product A?',
-    //       options: [
-    //         OptionModel(id: 1, label: 'I love it'),
-    //         OptionModel(id: 2, label: 'I hate it'),
-    //         OptionModel(id: 3, label: 'I\’m indifferent'),
-    //       ],
-    //     ),
-    //     MultiChoiceQuestionModel(
-    //       question: 'What do you think about Product A?',
-    //       options: [
-    //         OptionModel(id: 1, label: 'I love it'),
-    //         OptionModel(id: 2, label: 'I hate it'),
-    //         OptionModel(id: 3, label: 'I\’m indifferent'),
-    //       ],
-    //     ),
-    //   ],
-    //   collectors: [
-    //     CollectorModel(label: 'Live Survey', responses: [1, 2, 3, 4]),
-    //     CollectorModel(label: 'Link Sharing', responses: [1, 2]),
-    //   ],
-    // ),
   }
 
   StoreModel.zero() {
@@ -172,32 +77,47 @@ class StoreModel extends ChangeNotifier {
       if (response.error == 'error') {
         // handle error, show a toast or something
       } else {
-        response.surveys.forEach((survey) => survey.questions.map((question) {
-              if (question['options'] is List<dynamic>) {
-                List<OptionModel> options = question['options'].map<OptionModel>(
-                    (option) => OptionModel(id: question['id'], label: option)).toList();
-                MultiChoiceQuestionModel questionModel =
-                    MultiChoiceQuestionModel.fromJson(question);
-                questionModel.options = options;
-                return questionModel;
-              }
-              if (question['options'] is Map) if (question['format'] ==
-                  'linearscale') {
-                RangeQuestionModel questionModel =
-                    RangeQuestionModel.fromJson(question);
-                questionModel.id = question['id'];
-
-                return questionModel;
-              }
-              return OpenQuestionModel.fromJson(question);
-            }).toList());
-        print(response.surveys);
+        response.surveys.forEach((survey) {
+          survey.questions = survey.questions.map((question) {
+            if (question['options'] is List<dynamic>) {
+              List<OptionModel> options = question['options']
+                  .map<OptionModel>((option) =>
+                      OptionModel(id: question['id'], label: option))
+                  .toList();
+              MultiChoiceQuestionModel questionModel =
+                  MultiChoiceQuestionModel.fromJson(question);
+              questionModel.options = options;
+              return questionModel;
+            }
+            if (question['options'] is Map) if (question['format'] ==
+                'linearscale') {
+              RangeQuestionModel questionModel =
+                  RangeQuestionModel.fromJson(question);
+              questionModel.id = question['id'];
+              return questionModel;
+            }
+            return OpenQuestionModel.fromJson(question);
+          }).toList();
+        });
         surveys = response.surveys;
       }
       processing = false;
     } catch (e, t) {
       surveyServiceImpt.handleError(e, t);
     }
+  }
+
+  void submitResponse(BuildContext context, SurveyModel survey) async {
+    processing = true;
+    Future.delayed(Duration(seconds: 2), () {
+      processing = false;
+      Toast.show('RESPONSE SUCCESSFULLY SENT', context,
+          backgroundColor: Colors.green, backgroundRadius: 50);
+      Future.delayed(Duration(seconds: 2), () {
+        App.pushPageRoute(DashboardView());
+      });
+    });
+    print(survey);
   }
 
   bool get isDarkMode => _darkMode == true;

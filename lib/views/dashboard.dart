@@ -70,14 +70,15 @@ class _DashboardViewState extends State<DashboardView> {
 
   @override
   void initState() {
-    super.initState();
-    if (mounted) Provider.of<StoreModel>(context, listen: false).getProjects();
+    if (Provider.of<StoreModel>(context, listen: false).surveys == null)
+      Provider.of<StoreModel>(context, listen: false).getProjects();
     tabs = [
       HomeFragment(onNavigate: onTapped),
       ProjectsFragment(onNavigate: onTapped),
       SurveysFragment(onNavigate: onTapped),
       ProfileFragment(onNavigate: onTapped),
     ];
+    super.initState();
   }
 
   @override
