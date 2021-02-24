@@ -7,7 +7,6 @@ import 'package:lime/fragments/home.dart';
 import 'package:lime/fragments/profile.dart';
 import 'package:lime/fragments/projects.dart';
 import 'package:lime/fragments/surveys.dart';
-import 'package:lime/main.dart';
 import 'package:lime/models/store.dart';
 import 'package:lime/utils.dart';
 import 'package:lime/values/spacing.dart';

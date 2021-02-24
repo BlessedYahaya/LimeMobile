@@ -22,9 +22,9 @@ class _ExampleFragmentState extends State<ExampleFragment> {
   MultiChoiceQuestionModel question = MultiChoiceQuestionModel(
     question: 'What do you think about Product A?',
     options: [
-      OptionModel(id: 1, label: 'I love it'),
-      OptionModel(id: 2, label: 'I hate it'),
-      OptionModel(id: 3, label: 'I\’m indifferent'),
+      OptionModel(id: '2', label: 'I love it'),
+      OptionModel(id:'3', label: 'I hate it'),
+      OptionModel(id: '4', label: 'I\’m indifferent'),
     ],
   );
   OpenQuestionModel openQuestion =

@@ -5,7 +5,7 @@ import 'package:lime/models/project.dart';
 part 'survey.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
-class SurveyModel {
+ class SurveyModel {
   int id;
   int projectID;
   String label;

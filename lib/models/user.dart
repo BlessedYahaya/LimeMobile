@@ -11,7 +11,11 @@ class UserModel {
 
   UserModel({this.id, this.firstName = '', this.lastName = '', this.picture});
 
-  static final UserModel zero = UserModel();
+  static final UserModel zero = UserModel(
+      id: 0,
+      firstName: 'May',
+      lastName: 'Hampton',
+    );
 
   factory UserModel.fromJson(Map user) => _$UserModelFromJson(user);
 

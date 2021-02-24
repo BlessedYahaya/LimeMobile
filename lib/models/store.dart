@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:lime/api/projects.dart';
 import 'package:lime/api/surveys.dart';
-import 'package:lime/models/collector.dart';
 import 'package:lime/models/project.dart';
 import 'package:lime/models/question.dart';
 import 'package:lime/models/response/projects.dart';
@@ -21,12 +20,7 @@ class StoreModel extends ChangeNotifier {
     _authenticated = false;
     _processing = false;
 
-    // TODO use UserModel.zero to clear these values
-    user = UserModel(
-      id: 0,
-      firstName: 'John',
-      lastName: 'Doe',
-    );
+    user = UserModel.zero;
     env = {};
     //   ProjectModel(
     //     label: 'SAPS Project',
@@ -178,6 +172,26 @@ class StoreModel extends ChangeNotifier {
       if (response.error == 'error') {
         // handle error, show a toast or something
       } else {
+        response.surveys.forEach((survey) => survey.questions.map((question) {
+              if (question['options'] is List<dynamic>) {
+                List<OptionModel> options = question['options'].map<OptionModel>(
+                    (option) => OptionModel(id: question['id'], label: option)).toList();
+                MultiChoiceQuestionModel questionModel =
+                    MultiChoiceQuestionModel.fromJson(question);
+                questionModel.options = options;
+                return questionModel;
+              }
+              if (question['options'] is Map) if (question['format'] ==
+                  'linearscale') {
+                RangeQuestionModel questionModel =
+                    RangeQuestionModel.fromJson(question);
+                questionModel.id = question['id'];
+
+                return questionModel;
+              }
+              return OpenQuestionModel.fromJson(question);
+            }).toList());
+        print(response.surveys);
         surveys = response.surveys;
       }
       processing = false;

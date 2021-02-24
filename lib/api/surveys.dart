@@ -20,7 +20,6 @@ class SurveyServiceImpt extends SurveyService {
       final res = await client.get(SurveyService.ENDPOINT,
           headers: await _getHeaders());
       Map<String, dynamic> map = json.decode(res.body);
-      print(map);
       if (res.statusCode == HttpStatus.ok) {
         return SurveyResponse.fromJson(map);
       } else {
