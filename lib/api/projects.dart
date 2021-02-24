@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' show Client;
 import 'package:lime/api/api.dart';
-import 'package:lime/models/response/projectResponse.dart';
+import 'package:lime/models/response/projects.dart';
 import 'package:lime/values/strings.dart';
 
 class ProjectServiceImpt extends ProjectService {

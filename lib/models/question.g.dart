@@ -12,6 +12,7 @@ MultiChoiceQuestionModel _$MultiChoiceQuestionModelFromJson(Map json) {
     surveyID: json['surveyID'] as int,
     question: json['question'] as String,
     message: json['message'] as String,
+    isRequired: json['isRequired'] as bool,
     options: (json['options'] as List)
         ?.map((e) => e == null ? null : OptionModel.fromJson(e as Map))
         ?.toList(),
@@ -25,6 +26,7 @@ Map<String, dynamic> _$MultiChoiceQuestionModelToJson(
       'surveyID': instance.surveyID,
       'question': instance.question,
       'message': instance.message,
+      'isRequired': instance.isRequired,
       'options': instance.options?.map((e) => e?.toJson())?.toList(),
     };
 
@@ -35,7 +37,7 @@ OpenQuestionModel _$OpenQuestionModelFromJson(Map json) {
     question: json['question'] as String,
     message: json['message'] as String,
     answer: json['answer'] as String,
-  );
+  )..isRequired = json['isRequired'] as bool;
 }
 
 Map<String, dynamic> _$OpenQuestionModelToJson(OpenQuestionModel instance) =>
@@ -44,6 +46,7 @@ Map<String, dynamic> _$OpenQuestionModelToJson(OpenQuestionModel instance) =>
       'surveyID': instance.surveyID,
       'question': instance.question,
       'message': instance.message,
+      'isRequired': instance.isRequired,
       'answer': instance.answer,
     };
 

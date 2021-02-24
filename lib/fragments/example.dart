@@ -211,7 +211,7 @@ class _ExampleFragmentState extends State<ExampleFragment> {
                       label: 'Market research product testing',
                       active: true,
                       dateModified: '12/01/2020',
-                      responses: [1, 2, 3],
+                      responses: 0,
                       project: ProjectModel(
                         label: 'Operations VC',
                         country: 'Nigeria',
@@ -227,7 +227,7 @@ class _ExampleFragmentState extends State<ExampleFragment> {
                       label: 'Market research product testing',
                       active: false,
                       dateModified: '12/01/2020',
-                      responses: [1],
+                      responses: 0,
                       project: ProjectModel(
                         label: 'Operations VC',
                         country: 'Nigeria',
@@ -272,7 +272,7 @@ class _ExampleFragmentState extends State<ExampleFragment> {
                       dateCreated: '10th of January 2020',
                       completionTime: '2 mins',
                       questions: [],
-                      responses: [1, 2, 3],
+                      responses: 0,
                       project: ProjectModel(
                         label: 'Operations VC',
                         country: 'Nigeria',

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lime/models/collector.dart';
 import 'package:lime/models/project.dart';
 import 'package:lime/models/question.dart';
@@ -343,7 +344,7 @@ class LProjectDetailsCard extends LCard {
                 ),
                 VSpace.sm,
                 Text(
-                  '${project.dateCreated}',
+                  '${DateFormat.yMEd().format(DateTime.parse(project.dateCreated))}',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontFamily: Strings.app.font,
                         fontWeight: FontWeight.w500,
@@ -462,7 +463,7 @@ class LSurveySummaryCard extends LCard {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            'Last modified ${survey.dateModified}',
+                            'Last modified ${DateFormat.yMEd().format(DateTime.parse(survey.dateModified))}',
                             style: Theme.of(context).textTheme.caption.copyWith(
                                   fontFamily: Strings.app.font,
                                   fontWeight: FontWeight.w300,
@@ -471,7 +472,7 @@ class LSurveySummaryCard extends LCard {
                             softWrap: true,
                           ),
                           Text(
-                            '${survey.responses?.length ?? 0} response${survey.responses?.length == 1 ? '' : 's'}',
+                            '${survey.responses} response${survey.responses == 1 ? '' : 's'}',
                             style: Theme.of(context).textTheme.caption.copyWith(
                                   fontFamily: Strings.app.font,
                                   fontWeight: FontWeight.w300,
@@ -549,7 +550,7 @@ class LSurveyDetailsCard extends LCard {
                 ),
                 VSpace.sm,
                 Text(
-                  '${survey.dateCreated}',
+                  '${DateFormat.yMEd().format(DateTime.parse(survey.dateCreated))}',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontFamily: Strings.app.font,
                         fontWeight: FontWeight.w500,
@@ -566,7 +567,7 @@ class LSurveyDetailsCard extends LCard {
                 ),
                 VSpace.sm,
                 Text(
-                  '${survey.dateModified}',
+                  '${DateFormat.yMEd().format(DateTime.parse(survey.dateModified))}',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontFamily: Strings.app.font,
                         fontWeight: FontWeight.w500,
@@ -583,7 +584,7 @@ class LSurveyDetailsCard extends LCard {
                 ),
                 VSpace.sm,
                 Text(
-                  '${survey.completionTime}',
+                  '${survey.completionTime != null ? DateFormat.yMEd().format(DateTime.parse(survey.completionTime)): '-'}',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontFamily: Strings.app.font,
                         fontWeight: FontWeight.w500,
@@ -632,7 +633,7 @@ class LSurveyCollectorsCard extends LCard {
                     ),
                     VSpace.sm,
                     Text(
-                      '${collector.responses?.length ?? '0'} response${survey.responses?.length == 1 ? '' : 's'}',
+                      '${collector.responses?.length ?? '0'} response${survey.responses == 1 ? '' : 's'}',
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontFamily: Strings.app.font,
                             fontWeight: FontWeight.w500,

@@ -56,7 +56,7 @@ class _SurveysFragmentState extends State<SurveysFragment> {
                               fullscreenDialog: true,
                             );
                           },
-                        ),
+                        ),    
                     ],
                   ),
                 ),

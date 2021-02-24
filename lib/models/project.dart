@@ -5,15 +5,14 @@ part 'project.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
 class ProjectModel {
-  @JsonKey(name: '_id')
-  int id;
+  String id;
   String label;
-  @JsonKey(name: 'description')
   String description;
-  @JsonKey(name: 'createdAt')
   String dateCreated;
   String country;
+  @JsonKey(name: 'survey')
   List<SurveyModel> surveys;
+  @JsonKey(defaultValue: false)
   bool checked;
 
   ProjectModel({
@@ -37,8 +36,10 @@ class ProjectModel {
     return '${toJson()}';
   }
 
-  List<SurveyModel> get activeSurveys =>
-      surveys.where((SurveyModel s) => s.active).toList(growable: false);
-  List<SurveyModel> get draftSurveys =>
-      surveys.where((SurveyModel s) => !s.active).toList(growable: false);
+  List<SurveyModel> get activeSurveys => surveys
+      .where((SurveyModel s) => s.status == 'active')
+      .toList(growable: false);
+  List<SurveyModel> get draftSurveys => surveys
+      .where((SurveyModel s) => s.status == 'draft')
+      .toList(growable: false);
 }

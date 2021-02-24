@@ -18,21 +18,20 @@ class ProjectsFragment extends StatefulWidget {
 }
 
 class _ProjectsFragmentState extends State<ProjectsFragment> {
-  StoreModel store;
   final ScrollController scrollController =
       ScrollController(keepScrollOffset: true);
-
-  List<ProjectModel> get selectedProjects =>
-      store.projects.where((ProjectModel p) => p.checked).toList();
 
   @override
   void initState() {
     super.initState();
-    store = Provider.of<StoreModel>(App.navigatorKey.currentContext);
   }
 
   @override
   Widget build(BuildContext context) {
+    StoreModel store = Provider.of<StoreModel>(context, listen: false);
+    List<ProjectModel> selectedProjects =
+        store.projects.where((ProjectModel p) => p.checked).toList();
+
     return LScaffold(
       appBar: AppBar(
         title: Text('Projects'),

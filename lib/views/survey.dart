@@ -95,7 +95,7 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                                   context: context,
                                   color: LColors.primaryLightColor,
                                   value:
-                                      '${widget.survey.responses?.length ?? 0}',
+                                      '${widget.survey.responses ?? 0}',
                                 ),
                               ),
                               Expanded(

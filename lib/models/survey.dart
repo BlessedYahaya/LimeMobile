@@ -14,8 +14,11 @@ class SurveyModel {
   String dateModified;
   String completionTime;
   String note;
+  @JsonKey(defaultValue: false)
   bool active;
-  List responses;
+  String status;
+  int responses;
+  @JsonKey(name:'question')
   List questions;
   List<CollectorModel> collectors;
   ProjectModel project;
@@ -30,7 +33,8 @@ class SurveyModel {
     this.completionTime = '',
     this.note = '',
     this.active = false,
-    this.responses = const [],
+    this.status,
+    this.responses = 0,
     this.collectors = const <CollectorModel>[],
     this.questions = const [],
     this.project,

@@ -16,12 +16,13 @@ SurveyModel _$SurveyModelFromJson(Map json) {
     dateModified: json['dateModified'] as String,
     completionTime: json['completionTime'] as String,
     note: json['note'] as String,
-    active: json['active'] as bool,
-    responses: json['responses'] as List,
+    active: json['active'] as bool ?? false,
+    status: json['status'] as String,
+    responses: json['responses'] as int,
     collectors: (json['collectors'] as List)
         ?.map((e) => e == null ? null : CollectorModel.fromJson(e as Map))
         ?.toList(),
-    questions: json['questions'] as List,
+    questions: json['question'] as List,
     project: json['project'] == null
         ? null
         : ProjectModel.fromJson(json['project'] as Map),
@@ -39,8 +40,9 @@ Map<String, dynamic> _$SurveyModelToJson(SurveyModel instance) =>
       'completionTime': instance.completionTime,
       'note': instance.note,
       'active': instance.active,
+      'status': instance.status,
       'responses': instance.responses,
-      'questions': instance.questions,
+      'question': instance.questions,
       'collectors': instance.collectors?.map((e) => e?.toJson())?.toList(),
       'project': instance.project?.toJson(),
     };

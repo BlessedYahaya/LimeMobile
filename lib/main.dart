@@ -120,8 +120,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<StoreModel>(
-            create: (context) => widget.store ?? appStore),
+        ChangeNotifierProvider<StoreModel>(create: (context) => StoreModel()),
       ],
       child: Consumer<StoreModel>(
         builder: (context, store, child) => MaterialApp(

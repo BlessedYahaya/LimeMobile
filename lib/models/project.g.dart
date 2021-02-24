@@ -8,13 +8,13 @@ part of 'project.dart';
 
 ProjectModel _$ProjectModelFromJson(Map json) {
   return ProjectModel(
-    id: json['_id'] as int,
+    id: json['id'] as String,
     label: json['label'] as String,
     description: json['description'] as String,
-    dateCreated: json['createdAt'] as String,
+    dateCreated: json['dateCreated'] as String,
     country: json['country'] as String,
-    checked: json['checked'] as bool,
-    surveys: (json['surveys'] as List)
+    checked: json['checked'] as bool ?? false,
+    surveys: (json['survey'] as List)
         ?.map((e) => e == null ? null : SurveyModel.fromJson(e as Map))
         ?.toList(),
   );
@@ -22,11 +22,11 @@ ProjectModel _$ProjectModelFromJson(Map json) {
 
 Map<String, dynamic> _$ProjectModelToJson(ProjectModel instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      'id': instance.id,
       'label': instance.label,
       'description': instance.description,
-      'createdAt': instance.dateCreated,
+      'dateCreated': instance.dateCreated,
       'country': instance.country,
-      'surveys': instance.surveys?.map((e) => e?.toJson())?.toList(),
+      'survey': instance.surveys?.map((e) => e?.toJson())?.toList(),
       'checked': instance.checked,
     };

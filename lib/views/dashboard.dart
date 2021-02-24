@@ -24,8 +24,6 @@ class DashboardView extends StatefulWidget {
 }
 
 class _DashboardViewState extends State<DashboardView> {
-  StoreModel store;
-
   List<Widget> tabs;
 
   List<BottomNavigationBarItem> navItems = <BottomNavigationBarItem>[
@@ -74,8 +72,7 @@ class _DashboardViewState extends State<DashboardView> {
   @override
   void initState() {
     super.initState();
-    store = Provider.of<StoreModel>(App.navigatorKey.currentContext);
-    store.getProjects();
+    if (mounted) Provider.of<StoreModel>(context, listen: false).getProjects();
     tabs = [
       HomeFragment(onNavigate: onTapped),
       ProjectsFragment(onNavigate: onTapped),
@@ -91,6 +88,7 @@ class _DashboardViewState extends State<DashboardView> {
 
   @override
   Widget build(BuildContext context) {
+    StoreModel store = Provider.of<StoreModel>(context);
     return WillPopScope(
       onWillPop: () async {
         if (currentTabIndex != 0) {

@@ -1,6 +1,6 @@
 import 'package:lime/models/project.dart';
 import 'package:json_annotation/json_annotation.dart';
-part 'projectResponse.g.dart';
+part 'projects.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
 class ProjectResponse {
