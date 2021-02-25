@@ -213,12 +213,107 @@ class _FeedbackViewState extends State<FeedbackView>
                                         });
                                       },
                                     ),
+                                  if (question is ChecklistQuestionModel)
+                                    LChecklistQuestionCard(
+                                      question: question,
+                                      context: context,
+                                      index: widget.survey.questions
+                                              .indexOf(question) +
+                                          1,
+                                      onChanged: (bool value, int index) {
+                                        setState(() {
+                                          question.options[index].selected =
+                                              value;
+                                        });
+                                      },
+                                    ),
+                                  if (question is RangeQuestionModel)
+                                    LRangeQuestionCard(
+                                      question: question,
+                                      context: context,
+                                      index: widget.survey.questions
+                                              .indexOf(question) +
+                                          1,
+                                      onChanged: (double value) {
+                                        setState(() {
+                                          question.answer = value.toInt();
+                                        });
+                                      },
+                                    ),
                                 ],
                               LMiniButton(
                                 'Submit',
                                 icon: Icon(Icons.send, size: 16),
                                 onPressed: () {
-                                  store.submitResponse(context, widget.survey);
+                                  widget.survey.questions.forEach((question) {
+                                    if (question is MultiChoiceQuestionModel) {
+                                      if (question.isRequired &&
+                                          !question.answered) {
+                                        setState(() {
+                                          question.message =
+                                              'This response is required';
+                                        });
+                                      } else {
+                                        setState(() {
+                                          question.message = null;
+                                        });
+                                      }
+                                    }
+                                    if (question is OpenQuestionModel) {
+                                      _formKey.currentState.validate();
+                                    }
+                                    if (question is ChecklistQuestionModel) {
+                                      if (question.isRequired &&
+                                          !question.answered) {
+                                        setState(() {
+                                          question.message =
+                                              'This response is required';
+                                        });
+                                      } else {
+                                        setState(() {
+                                          question.message = null;
+                                        });
+                                      }
+                                    }
+                                    if (question is RangeQuestionModel) {
+                                      if (question.isRequired &&
+                                          !question.answered) {
+                                        setState(() {
+                                          question.message =
+                                              'This response is required';
+                                        });
+                                      } else {
+                                        setState(() {
+                                          question.message = null;
+                                        });
+                                      }
+                                    }
+                                  });
+                                  // check if any required field has not been answered
+                                  dynamic hasUnanswered = widget
+                                      .survey.questions
+                                      .firstWhere((question) {
+                                    if (question is MultiChoiceQuestionModel) {
+                                      return (question.isRequired &&
+                                          !question.answered);
+                                    }
+                                    if (question is OpenQuestionModel) {
+                                      return (question.isRequired &&
+                                          !question.answered);
+                                    }
+                                    if (question is ChecklistQuestionModel) {
+                                      return (question.isRequired &&
+                                          !question.answered);
+                                    }
+                                    if (question is RangeQuestionModel) {
+                                      return (question.isRequired &&
+                                          !question.answered);
+                                    }
+                                  }, orElse: () => null);
+                                  // it means no unanswered required field was found
+                                  if (hasUnanswered == null)
+                                    store.submitResponse(
+                                        context, widget.survey);
                                 },
                               ),
                             ],

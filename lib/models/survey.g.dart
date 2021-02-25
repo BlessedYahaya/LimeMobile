@@ -8,8 +8,8 @@ part of 'survey.dart';
 
 SurveyModel _$SurveyModelFromJson(Map json) {
   return SurveyModel(
-    id: json['id'] as int,
-    projectID: json['projectID'] as int,
+    id: json['id'] as String,
+    projectID: json['projectID'] as String,
     label: json['label'] as String,
     description: json['description'] as String,
     dateCreated: json['dateCreated'] as String,

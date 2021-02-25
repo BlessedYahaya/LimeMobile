@@ -6,8 +6,8 @@ part 'survey.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
  class SurveyModel {
-  int id;
-  int projectID;
+  String id;
+  String projectID;
   String label;
   String description;
   String dateCreated;

@@ -729,6 +729,185 @@ class LQuestionCard extends LCard {
         );
 }
 
+class LChecklistQuestionCard extends LCard {
+  final ChecklistQuestionModel question;
+  final Function(bool, int) onChanged;
+
+  LChecklistQuestionCard({
+    Key key,
+    this.question,
+    this.onChanged,
+    @required BuildContext context,
+    @required int index,
+    GestureTapCallback onTap,
+    bool enabled = true,
+  })  : assert(enabled != null),
+        super(
+          key: key,
+          onTap: onTap,
+          child: LimitedBox(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      '$index.',
+                      style: Theme.of(context).textTheme.caption.copyWith(
+                            fontFamily: Strings.app.font,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                    HSpace.sm,
+                    Expanded(
+                      child: Text(
+                        '${question.question}',
+                        style: Theme.of(context).textTheme.caption.copyWith(
+                              fontFamily: Strings.app.font,
+                              fontWeight: FontWeight.w500,
+                            ),
+                        softWrap: true,
+                      ),
+                    ),
+                  ],
+                ),
+                VSpace.sm,
+                for (OptionModel _option in question.options)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Checkbox(
+                          value: _option.selected,
+                          onChanged: (value) {
+                            onChanged(value, question.options.indexOf(_option));
+                          }),
+                      Expanded(
+                        child: Text('${_option.label}', softWrap: true),
+                      ),
+                    ],
+                  ),
+                if (question.message != null) ...[
+                  VSpace.sm,
+                  Text(
+                    '${question.message}',
+                    style: Theme.of(context).textTheme.caption.copyWith(
+                          fontFamily: Strings.app.font,
+                          color: Theme.of(context).errorColor,
+                          fontWeight: FontWeight.w500,
+                        ),
+                    softWrap: true,
+                  ),
+                ],
+              ],
+            ),
+          ),
+        );
+}
+
+class LRangeQuestionCard extends LCard {
+  final RangeQuestionModel question;
+  final Function(double) onChanged;
+
+  LRangeQuestionCard({
+    Key key,
+    this.question,
+    this.onChanged,
+    @required BuildContext context,
+    @required int index,
+    GestureTapCallback onTap,
+    bool enabled = true,
+  })  : assert(enabled != null),
+        super(
+          key: key,
+          onTap: onTap,
+          child: LimitedBox(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      '$index.',
+                      style: Theme.of(context).textTheme.caption.copyWith(
+                            fontFamily: Strings.app.font,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                    HSpace.sm,
+                    Expanded(
+                      child: Text(
+                        '${question.question}',
+                        style: Theme.of(context).textTheme.caption.copyWith(
+                              fontFamily: Strings.app.font,
+                              fontWeight: FontWeight.w500,
+                            ),
+                        softWrap: true,
+                      ),
+                    ),
+                  ],
+                ),
+                VSpace.sm,
+                Slider(
+                    max: question.range == null
+                        ? 5.0
+                        : question.range[1].toDouble(),
+                    min: question.range == null
+                        ? 0.0
+                        : question.range[0].toDouble(),
+                    value: question.answer == 0
+                        ? question.range[0].toDouble()
+                        : question.answer.toDouble(),
+                    onChanged: onChanged),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '${question.answer == null ? 0 : question.answer.toDouble()}',
+                          style: Theme.of(context).textTheme.caption.copyWith(
+                                fontFamily: Strings.app.font,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                          softWrap: true,
+                        ),
+                        Text(
+                          '${question.range[1].toDouble()}',
+                          style: Theme.of(context).textTheme.caption.copyWith(
+                                fontFamily: Strings.app.font,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                          softWrap: true,
+                        ),
+                      ]),
+                ),
+                if (question.message != null) ...[
+                  VSpace.sm,
+                  Text(
+                    '${question.message}',
+                    style: Theme.of(context).textTheme.caption.copyWith(
+                          fontFamily: Strings.app.font,
+                          color: Theme.of(context).errorColor,
+                          fontWeight: FontWeight.w500,
+                        ),
+                    softWrap: true,
+                  ),
+                ],
+              ],
+            ),
+          ),
+        );
+}
+
 class LOpenQuestionCard extends LCard {
   final OpenQuestionModel question;
   final ValueChanged<String> onChanged;

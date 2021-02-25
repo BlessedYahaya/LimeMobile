@@ -71,7 +71,7 @@ class _DashboardViewState extends State<DashboardView> {
   @override
   void initState() {
     if (Provider.of<StoreModel>(context, listen: false).surveys == null)
-      Provider.of<StoreModel>(context, listen: false).getProjects();
+      Provider.of<StoreModel>(context, listen: false).getProjects(context);
     tabs = [
       HomeFragment(onNavigate: onTapped),
       ProjectsFragment(onNavigate: onTapped),

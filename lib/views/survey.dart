@@ -210,41 +210,68 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisSize: MainAxisSize.max,
                               children: <Widget>[
-                                if(widget.survey.questions != null)
-                                for (var question
-                                    in widget.survey?.questions) ...[
-                                  if (question is OpenQuestionModel)
-                                    LOpenQuestionCard(
-                                      question: question,
-                                      onChanged: (String value) {
-                                        question.answer = value;
-                                      },
-                                      validator: (String value) =>
-                                          validateRequired(value, 'This'),
-                                      context: context,
-                                      index: widget.survey.questions
-                                              .indexOf(question) +
-                                          1,
-                                    ),
-                                  if (question is MultiChoiceQuestionModel)
-                                    LQuestionCard(
-                                      question: question,
-                                      context: context,
-                                      index: widget.survey.questions
-                                              .indexOf(question) +
-                                          1,
-                                      onChanged: (OptionModel option) {
-                                        setState(() {
-                                          if (question.answer != null) {
-                                            question.answer.selected = false;
-                                          } else {
-                                            question.message = null;
-                                          }
-                                          option.selected = true;
-                                        });
-                                      },
-                                    ),
-                                ],
+                                if (widget.survey.questions != null)
+                                  for (var question
+                                      in widget.survey?.questions) ...[
+                                    if (question is OpenQuestionModel)
+                                      LOpenQuestionCard(
+                                        question: question,
+                                        onChanged: (String value) {
+                                          question.answer = value;
+                                        },
+                                        validator: (String value) =>
+                                            validateRequired(value, 'This'),
+                                        context: context,
+                                        index: widget.survey.questions
+                                                .indexOf(question) +
+                                            1,
+                                      ),
+                                    if (question is MultiChoiceQuestionModel)
+                                      LQuestionCard(
+                                        question: question,
+                                        context: context,
+                                        index: widget.survey.questions
+                                                .indexOf(question) +
+                                            1,
+                                        onChanged: (OptionModel option) {
+                                          setState(() {
+                                            if (question.answer != null) {
+                                              question.answer.selected = false;
+                                            } else {
+                                              question.message = null;
+                                            }
+                                            option.selected = true;
+                                          });
+                                        },
+                                      ),
+                                    if (question is ChecklistQuestionModel)
+                                      LChecklistQuestionCard(
+                                        question: question,
+                                        context: context,
+                                        index: widget.survey.questions
+                                                .indexOf(question) +
+                                            1,
+                                        onChanged: (bool value, int index) {
+                                          setState(() {
+                                            question.options[index].selected =
+                                                value;
+                                          });
+                                        },
+                                      ),
+                                    if (question is RangeQuestionModel)
+                                      LRangeQuestionCard(
+                                        question: question,
+                                        context: context,
+                                        index: widget.survey.questions
+                                                .indexOf(question) +
+                                            1,
+                                        onChanged: (double value) {
+                                          setState(() {
+                                            question.answer = value.toInt();
+                                          });
+                                        },
+                                      ),
+                                  ],
                               ],
                             ),
                           ),

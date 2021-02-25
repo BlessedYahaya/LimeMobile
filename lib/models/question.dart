@@ -61,6 +61,43 @@ class MultiChoiceQuestionModel extends QuestionModel {
 }
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
+class ChecklistQuestionModel extends QuestionModel {
+  @JsonKey(ignore: true)
+  List<OptionModel> options;
+
+  ChecklistQuestionModel({
+    String id,
+    String surveyID,
+    String question = '',
+    String message,
+    bool isRequired,
+    String format,
+    this.options = const <OptionModel>[],
+  }) : super(
+            id: id,
+            surveyID: surveyID,
+            question: question,
+            message: message,
+            isRequired: isRequired,
+            format: format);
+
+  factory ChecklistQuestionModel.fromJson(Map map) =>
+      _$ChecklistQuestionModelFromJson(map);
+
+  Map<String, dynamic> toJson() => _$ChecklistQuestionModelToJson(this);
+
+  @override
+  String toString() {
+    return '${toJson()}';
+  }
+
+  List<OptionModel> get answer =>
+      options.where((OptionModel option) => option.selected).toList();
+
+  bool get answered => answer != null && answer.length != 0;
+}
+
+@JsonSerializable(explicitToJson: true, anyMap: true)
 class OpenQuestionModel extends QuestionModel {
   String answer;
 
@@ -86,6 +123,7 @@ class OpenQuestionModel extends QuestionModel {
       _$OpenQuestionModelFromJson(map);
 
   Map<String, dynamic> toJson() => _$OpenQuestionModelToJson(this);
+  bool get answered => answer != null && answer.length != 0;
 
   @override
   String toString() {
@@ -95,14 +133,18 @@ class OpenQuestionModel extends QuestionModel {
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
 class RangeQuestionModel extends QuestionModel {
+  @JsonKey(defaultValue: 0)
   int answer;
-
+  List<dynamic> range;
+  List<dynamic> label;
   RangeQuestionModel(
       {String id,
       String surveyID,
       String question = '',
       String message,
       String format,
+      this.range = const <int>[],
+      this.label = const <String>[],
       bool isRequired,
       this.answer = 0})
       : super(
@@ -119,6 +161,7 @@ class RangeQuestionModel extends QuestionModel {
       _$RangeQuestionModelFromJson(map);
 
   Map<String, dynamic> toJson() => _$RangeQuestionModelToJson(this);
+  bool get answered => answer != null && answer != 0;
 
   @override
   String toString() {

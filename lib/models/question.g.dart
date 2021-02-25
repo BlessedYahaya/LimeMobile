@@ -28,6 +28,28 @@ Map<String, dynamic> _$MultiChoiceQuestionModelToJson(
       'format': instance.format,
     };
 
+ChecklistQuestionModel _$ChecklistQuestionModelFromJson(Map json) {
+  return ChecklistQuestionModel(
+    id: json['id'] as String,
+    surveyID: json['surveyID'] as String,
+    question: json['question'] as String,
+    message: json['message'] as String,
+    isRequired: json['isRequired'] as bool,
+    format: json['format'] as String,
+  );
+}
+
+Map<String, dynamic> _$ChecklistQuestionModelToJson(
+        ChecklistQuestionModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'surveyID': instance.surveyID,
+      'question': instance.question,
+      'message': instance.message,
+      'isRequired': instance.isRequired,
+      'format': instance.format,
+    };
+
 OpenQuestionModel _$OpenQuestionModelFromJson(Map json) {
   return OpenQuestionModel(
     id: json['id'] as String,
@@ -58,8 +80,10 @@ RangeQuestionModel _$RangeQuestionModelFromJson(Map json) {
     question: json['question'] as String,
     message: json['message'] as String,
     format: json['format'] as String,
+    range: (json['range'] as List)?.map((e) => e as int)?.toList(),
+    label: (json['label'] as List)?.map((e) => e as String)?.toList(),
     isRequired: json['isRequired'] as bool,
-    answer: json['answer'] as int,
+    answer: json['answer'] as int ?? 0,
   );
 }
 
@@ -72,6 +96,8 @@ Map<String, dynamic> _$RangeQuestionModelToJson(RangeQuestionModel instance) =>
       'isRequired': instance.isRequired,
       'format': instance.format,
       'answer': instance.answer,
+      'range': instance.range,
+      'label': instance.label,
     };
 
 OptionModel _$OptionModelFromJson(Map json) {

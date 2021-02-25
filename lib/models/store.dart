@@ -9,6 +9,7 @@ import 'package:lime/models/project.dart';
 import 'package:lime/models/question.dart';
 import 'package:lime/models/response/projects.dart';
 import 'package:lime/models/response/surveys.dart';
+import 'package:lime/models/submitSR.dart';
 import 'package:lime/models/survey.dart';
 import 'package:lime/models/user.dart';
 import 'package:lime/views/dashboard.dart';
@@ -52,48 +53,68 @@ class StoreModel extends ChangeNotifier {
   List<SurveyModel> _surveys;
 
   /// get all user projects
-  void getProjects() async {
+  void getProjects(BuildContext context) async {
     processing = true;
     try {
       ProjectResponse response = await projectServiceImpt.getAllProjects();
-      await getSurveys();
+      await getSurveys(context);
       if (response.error == 'error') {
         // handle error, show a toast or something
+        Toast.show('ERROR ${response.message ?? ''}', context,
+            backgroundColor: Colors.red, backgroundRadius: 50);
       } else {
         projects = response.projects;
       }
-      processing = false;
     } catch (e, t) {
-      projectServiceImpt.handleError(e, t);
       // handle error
+      var error = projectServiceImpt.handleError(e, t);
+      Toast.show('ERROR ${error['message'] ?? ''}', context,
+          backgroundColor: Colors.red, backgroundRadius: 50);
     }
+    processing = false;
   }
 
   /// get all user surveys
-  Future<void> getSurveys() async {
+  Future<void> getSurveys(BuildContext context) async {
     processing = true;
     try {
       SurveyResponse response = await surveyServiceImpt.getAllSurveys();
       if (response.error == 'error') {
         // handle error, show a toast or something
+        Toast.show('ERROR ${response.message ?? ''}', context,
+            backgroundColor: Colors.red, backgroundRadius: 50);
       } else {
         response.surveys.forEach((survey) {
           survey.questions = survey.questions.map((question) {
             if (question['options'] is List<dynamic>) {
-              List<OptionModel> options = question['options']
-                  .map<OptionModel>((option) =>
-                      OptionModel(id: question['id'], label: option))
-                  .toList();
-              MultiChoiceQuestionModel questionModel =
-                  MultiChoiceQuestionModel.fromJson(question);
-              questionModel.options = options;
-              return questionModel;
+              if (question['format'] == 'multichoice') {
+                List<OptionModel> options = question['options']
+                    .map<OptionModel>((option) =>
+                        OptionModel(id: question['id'], label: option))
+                    .toList();
+                ChecklistQuestionModel questionModel =
+                    ChecklistQuestionModel.fromJson(question);
+                questionModel.options = options;
+                return questionModel;
+              } else {
+                List<OptionModel> options = question['options']
+                    .map<OptionModel>((option) =>
+                        OptionModel(id: question['id'], label: option))
+                    .toList();
+                MultiChoiceQuestionModel questionModel =
+                    MultiChoiceQuestionModel.fromJson(question);
+                questionModel.options = options;
+                return questionModel;
+              }
             }
             if (question['options'] is Map) if (question['format'] ==
                 'linearscale') {
               RangeQuestionModel questionModel =
                   RangeQuestionModel.fromJson(question);
               questionModel.id = question['id'];
+              questionModel.range = question['options']['range'];
+              questionModel.label = question['options']['label'] ;
+              print(question);
               return questionModel;
             }
             return OpenQuestionModel.fromJson(question);
@@ -101,23 +122,73 @@ class StoreModel extends ChangeNotifier {
         });
         surveys = response.surveys;
       }
-      processing = false;
     } catch (e, t) {
-      surveyServiceImpt.handleError(e, t);
+      // handle error
+      var error = surveyServiceImpt.handleError(e, t);
+      Toast.show('ERROR ${error['message'] ?? ''}', context,
+          backgroundColor: Colors.red, backgroundRadius: 50);
     }
+    processing = false;
   }
 
   void submitResponse(BuildContext context, SurveyModel survey) async {
     processing = true;
-    Future.delayed(Duration(seconds: 2), () {
-      processing = false;
-      Toast.show('RESPONSE SUCCESSFULLY SENT', context,
-          backgroundColor: Colors.green, backgroundRadius: 50);
-      Future.delayed(Duration(seconds: 2), () {
-        App.pushPageRoute(DashboardView());
-      });
+    List<Map<String, dynamic>> responses = [];
+    survey.questions.forEach((question) {
+      if (question is MultiChoiceQuestionModel) {
+        Map<String, dynamic> _response = new Map();
+        _response['isRequired'] = question.isRequired;
+        _response['responseValue'] = [
+          question.answered ? question.answer.label : ''
+        ];
+        responses.add(_response);
+      }
+      if (question is OpenQuestionModel) {
+        Map<String, dynamic> _response = new Map();
+        _response['isRequired'] = question.isRequired;
+        _response['responseValue'] = [question.answer];
+        responses.add(_response);
+      }
+      if (question is ChecklistQuestionModel) {
+        Map<String, dynamic> _response = new Map();
+        _response['isRequired'] = question.isRequired;
+        _response['responseValue'] = question.answer.map((res) {
+          if (res.selected) {
+            return res.label;
+          }
+        }).toList();
+        responses.add(_response);
+      }
+      if (question is RangeQuestionModel) {
+        Map<String, dynamic> _response = new Map();
+        _response['isRequired'] = question.isRequired;
+        _response['responseValue'] = [question.answer];
+        responses.add(_response);
+      }
     });
-    print(survey);
+    try {
+      SubmitSResponse response = await surveyServiceImpt.submitResponse(
+          SubmitSRequest(
+              note: survey.note,
+              responses: responses,
+              surveyID: survey.project.id));
+      if (response.status == 'success') {
+        Toast.show('RESPONSE SUCCESSFULLY SENT', context,
+            backgroundColor: Colors.green, backgroundRadius: 50);
+        Future.delayed(Duration(seconds: 1), () {
+          App.pushPageRoute(DashboardView());
+        });
+      } else {
+        Toast.show('ERROR ${response.message ?? ''}', context,
+            backgroundColor: Colors.red, backgroundRadius: 50);
+      }
+    } catch (e, t) {
+      var error = surveyServiceImpt.handleError(e, t);
+      Toast.show('ERROR ${error['message'] ?? ''}', context,
+          backgroundColor: Colors.red, backgroundRadius: 50);
+      // handle error
+    }
+    processing = false;
   }
 
   bool get isDarkMode => _darkMode == true;
