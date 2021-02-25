@@ -8,9 +8,9 @@ class SubmitSRequest {
   String note;
   @JsonKey(ignore: true)
   String surveyID;
-  List<Map<String, dynamic>> responses;
+  List<Map<String, dynamic>> response;
 
-  SubmitSRequest({this.note, this.responses, this.surveyID});
+  SubmitSRequest({this.note, this.response, this.surveyID});
   factory SubmitSRequest.fromJson(Map map) => _$SubmitSRequestFromJson(map);
 
   Map<String, dynamic> toJson() => _$SubmitSRequestToJson(this);
@@ -24,7 +24,7 @@ class SubmitSRequest {
 // submit response model
 @JsonSerializable(explicitToJson: true, anyMap: true)
 class SubmitSResponse {
-  String message, status;
+  String message, status, error;
 
   SubmitSResponse({this.message, this.status});
   factory SubmitSResponse.fromJson(Map map) => _$SubmitSResponseFromJson(map);

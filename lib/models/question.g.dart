@@ -80,8 +80,8 @@ RangeQuestionModel _$RangeQuestionModelFromJson(Map json) {
     question: json['question'] as String,
     message: json['message'] as String,
     format: json['format'] as String,
-    range: (json['range'] as List)?.map((e) => e as int)?.toList(),
-    label: (json['label'] as List)?.map((e) => e as String)?.toList(),
+    range: json['range'] as List,
+    label: json['label'] as List,
     isRequired: json['isRequired'] as bool,
     answer: json['answer'] as int ?? 0,
   );

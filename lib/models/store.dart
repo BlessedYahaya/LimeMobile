@@ -113,7 +113,7 @@ class StoreModel extends ChangeNotifier {
                   RangeQuestionModel.fromJson(question);
               questionModel.id = question['id'];
               questionModel.range = question['options']['range'];
-              questionModel.label = question['options']['label'] ;
+              questionModel.label = question['options']['label'];
               print(question);
               return questionModel;
             }
@@ -169,18 +169,18 @@ class StoreModel extends ChangeNotifier {
     try {
       SubmitSResponse response = await surveyServiceImpt.submitResponse(
           SubmitSRequest(
-              note: survey.note,
-              responses: responses,
-              surveyID: survey.project.id));
-      if (response.status == 'success') {
+              note: survey.note ?? "",
+              response: responses,
+              surveyID: survey.id));
+      if (response.error == 'error') {
+        Toast.show('ERROR ${response.message ?? ''}', context,
+            backgroundColor: Colors.red, backgroundRadius: 50);
+      } else {
         Toast.show('RESPONSE SUCCESSFULLY SENT', context,
             backgroundColor: Colors.green, backgroundRadius: 50);
         Future.delayed(Duration(seconds: 1), () {
           App.pushPageRoute(DashboardView());
         });
-      } else {
-        Toast.show('ERROR ${response.message ?? ''}', context,
-            backgroundColor: Colors.red, backgroundRadius: 50);
       }
     } catch (e, t) {
       var error = surveyServiceImpt.handleError(e, t);

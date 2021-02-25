@@ -4,13 +4,14 @@ import 'package:http/http.dart' show Client;
 import 'package:lime/api/api.dart';
 import 'package:lime/models/response/surveys.dart';
 import 'package:lime/models/submitSR.dart';
+import 'package:lime/values/strings.dart';
 
 class SurveyServiceImpt extends SurveyService {
   Client client = Client();
   static Future<Map<String, String>> _getHeaders() async {
     var headers = {
       'Content-Type': 'application/json',
-      // 'Authorization': 'Bearer ${Strings.app.userToken}',
+      'Authorization': 'Bearer ${Strings.app.userToken}',
     };
     return headers;
   }
@@ -21,7 +22,6 @@ class SurveyServiceImpt extends SurveyService {
       final res = await client.get(SurveyService.ENDPOINT,
           headers: await _getHeaders());
       Map<String, dynamic> map = json.decode(res.body);
-      print(map);
       if (res.statusCode == HttpStatus.ok) {
         return SurveyResponse.fromJson(map);
       } else {
@@ -37,17 +37,16 @@ class SurveyServiceImpt extends SurveyService {
   @override
   Future<SubmitSResponse> submitResponse(SubmitSRequest sRequest) async {
     try {
-      final res =
-          await client.post("${API.BASEURL}/response/${sRequest.surveyID}",
-              headers: await _getHeaders(),
-              body: json.encode(sRequest.toJson()));
-      print(res.body);
+      final res = await client.post(
+          "${API.BASEURL}/response/${sRequest.surveyID}/",
+          headers: await _getHeaders(),
+          body: jsonEncode(sRequest.toJson()));
       Map<String, dynamic> map = json.decode(res.body);
-      print(map);
       if (res.statusCode == HttpStatus.ok) {
         return SubmitSResponse.fromJson(map);
       } else {
         map['status'] = "error";
+        map['message'] = "An unknown error occured";
         return SubmitSResponse.fromJson(map);
       }
     } catch (e, t) {
