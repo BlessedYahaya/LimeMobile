@@ -6,11 +6,13 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lime/models/store.dart';
 import 'package:lime/values/theme.dart';
 import 'package:lime/views/dashboard.dart';
+import 'package:lime/views/login.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry/sentry.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 SentryClient sentry;
-
+String token;
 Future<void> _reportError(dynamic error, dynamic stackTrace) async {
   print('Caught error: $error');
   if (kDebugMode) {
@@ -34,6 +36,7 @@ Future<void> _reportError(dynamic error, dynamic stackTrace) async {
 
 _loadState() async {
   try {
+    token = await App.getToken();
     await DotEnv(env: appStore.env).load();
   } catch (e, t) {
     _reportError(e, t);
@@ -41,6 +44,7 @@ _loadState() async {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await _loadState();
   sentry = SentryClient(dsn: appStore.env['SENTRY_DSN'] ?? "fakeDsn");
 
@@ -56,7 +60,7 @@ void main() async {
   };
 
   return await runZoned<Future<void>>(
-    () async => runApp(App()),
+    () async => runApp(App(token: token)),
     onError: _reportError,
   );
 }
@@ -64,8 +68,9 @@ void main() async {
 class App extends StatefulWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
   final StoreModel store;
+  final String token;
 
-  const App({Key key, this.store}) : super(key: key);
+  const App({Key key, this.store, this.token}) : super(key: key);
 
   @override
   _AppState createState() => _AppState();
@@ -84,6 +89,16 @@ class App extends StatefulWidget {
         maintainState: maintainState,
       ),
     );
+  }
+
+  static Future<String> getToken() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token') ?? "";
+  }
+
+  static Future<bool> setToken(String token) async {
+    var prefs = await SharedPreferences.getInstance();
+    return await prefs.setString('token', token);
   }
 
   static Future pushNamed(String name, {Object arguments}) {
@@ -130,7 +145,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           themeMode: store.isDarkMode ? ThemeMode.dark : ThemeMode.light,
           navigatorKey: App.navigatorKey,
           debugShowCheckedModeBanner: false,
-          home: DashboardView(),
+          home: token.isEmpty ? LoginView() : DashboardView(),
           supportedLocales: const [Locale('en')],
           localizationsDelegates: [
             DefaultMaterialLocalizations.delegate,

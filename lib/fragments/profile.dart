@@ -466,7 +466,9 @@ class _ProfileFragmentState extends State<ProfileFragment> {
                       label: 'Log out',
                       context: context,
                       color: Colors.white,
-                      onTap: () {},
+                      onTap: () async {
+                        await store.logout();
+                      },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           const Radius.circular(10),

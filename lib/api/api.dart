@@ -1,7 +1,18 @@
 import 'dart:io';
 
+import 'package:lime/main.dart';
+
 class API {
   static const String BASEURL = 'https://limeapiv1.herokuapp.com/api/mobile';
+  static Future<Map<String, String>> getHeaders({bool withToken = true}) async {
+    var headersWithToken = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${await App.getToken()}',
+    };
+    var headers = {'Content-Type': 'application/json'};
+    return withToken ? headersWithToken : headers;
+  }
+
   Map<String, Object> handleError(error, StackTrace trace) {
     Map<String, dynamic> map = new Map();
     map['status'] = 'error';

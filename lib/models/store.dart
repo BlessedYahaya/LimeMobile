@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:lime/api/auth.dart';
 import 'package:lime/api/projects.dart';
 import 'package:lime/api/surveys.dart';
 import 'package:lime/components/toast.dart';
@@ -13,12 +14,14 @@ import 'package:lime/models/submitSR.dart';
 import 'package:lime/models/survey.dart';
 import 'package:lime/models/user.dart';
 import 'package:lime/views/dashboard.dart';
+import 'package:lime/views/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StoreModel extends ChangeNotifier {
   static final StoreModel _singleton = StoreModel._internal();
   ProjectServiceImpt projectServiceImpt = new ProjectServiceImpt();
   SurveyServiceImpt surveyServiceImpt = new SurveyServiceImpt();
+  AuthServiceImpl authServiceImpl = new AuthServiceImpl();
   StoreModel._internal() {
     _darkMode = false;
     _authenticated = false;
@@ -221,23 +224,31 @@ class StoreModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> login() {
-    if (user != null || user != UserModel.zero) {
-      _authenticated = true;
-      notifyListeners();
+  void login(BuildContext context, Map<String, String> loginMap) async {
+    processing = true;
+    try {
+      Map<String, dynamic> response = await authServiceImpl.loginUser(loginMap);
+      processing = false;
+      if (response['status'] == 'success') {
+        App.pushPageRoute(DashboardView());
+      } else {
+        Toast.show('ERROR ${response['message'] ?? ''}', context,
+            backgroundColor: Colors.red, backgroundRadius: 50);
+      }
+    } catch (e, t) {
+      processing = false;
+      var error = surveyServiceImpt.handleError(e, t);
+      Toast.show('ERROR ${error['message'] ?? ''}', context,
+          backgroundColor: Colors.red, backgroundRadius: 50);
+      // handle error
+
     }
-    return Future.delayed(Duration(seconds: 0), () => _authenticated);
   }
 
-  Future<bool> logout() {
-    return Future.delayed(Duration(milliseconds: 500), () {
-      if (isAuthenticated) {
-        _authenticated = false;
-        user = UserModel.zero;
-        picture = null;
-        notifyListeners();
-      }
-      return true;
+  Future<void> logout() async {
+    await App.setToken("");
+    Future.delayed(Duration(milliseconds: 1000), () {
+      App.pushPageRoute(LoginView());
     });
   }
 
