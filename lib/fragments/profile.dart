@@ -87,28 +87,28 @@ class _ProfileFragmentState extends State<ProfileFragment> {
                           ),
                           Expanded(
                               child: Text(
-                            '${store.user.firstName} ${store.user.lastName}',
+                            '${store.user.firstName}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           )),
-                          RichText(
-                            text: TextSpan(
-                              text: 'Edit',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .copyWith(
-                                    color: LColors.purpleColor,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  setState(() {
-                                    changeName = true;
-                                  });
-                                },
-                            ),
-                          ),
+                          // RichText(
+                          //   text: TextSpan(
+                          //     text: 'Edit',
+                          //     style: Theme.of(context)
+                          //         .textTheme
+                          //         .bodyText1
+                          //         .copyWith(
+                          //           color: LColors.purpleColor,
+                          //           decoration: TextDecoration.underline,
+                          //         ),
+                          //     recognizer: TapGestureRecognizer()
+                          //       ..onTap = () {
+                          //         setState(() {
+                          //           changeName = true;
+                          //         });
+                          //       },
+                          //   ),
+                          // ),
                           HSpace.sm,
                         ],
                       ),
@@ -210,6 +210,41 @@ class _ProfileFragmentState extends State<ProfileFragment> {
                         ),
                       ),
                     ],
+                    // VSpace.md,
+                    // Row(
+                    //   mainAxisSize: MainAxisSize.max,
+                    //   children: <Widget>[
+                    //     Expanded(
+                    //       child: LCard(
+                    //         child: Column(
+                    //           mainAxisSize: MainAxisSize.max,
+                    //           crossAxisAlignment: CrossAxisAlignment.start,
+                    //           children: <Widget>[
+                    //             Text(
+                    //               'Notifications:',
+                    //               style: Theme.of(context)
+                    //                   .textTheme
+                    //                   .caption
+                    //                   .copyWith(
+                    //                     fontFamily: Strings.app.font,
+                    //                     fontWeight: FontWeight.bold,
+                    //                   ),
+                    //             ),
+                    //             VSpace.sm,
+                    //             Text(
+                    //               'Sends an alert everytime you get a new response',
+                    //               style: Theme.of(context)
+                    //                   .textTheme
+                    //                   .caption
+                    //                   .copyWith(fontFamily: Strings.app.font),
+                    //               softWrap: true,
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     VSpace.md,
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -221,42 +256,7 @@ class _ProfileFragmentState extends State<ProfileFragment> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  'Notifications:',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .caption
-                                      .copyWith(
-                                        fontFamily: Strings.app.font,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                                VSpace.sm,
-                                Text(
-                                  'Sends an alert everytime you get a new response',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .caption
-                                      .copyWith(fontFamily: Strings.app.font),
-                                  softWrap: true,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    VSpace.md,
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        Expanded(
-                          child: LCard(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  'Email:',
+                                  'Name:',
                                   style: Theme.of(context)
                                       .textTheme
                                       .caption
@@ -323,25 +323,25 @@ class _ProfileFragmentState extends State<ProfileFragment> {
                                             ),
                                         softWrap: true,
                                       ),
-                                      RichText(
-                                        text: TextSpan(
-                                          text: 'Edit',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1
-                                              .copyWith(
-                                                color: LColors.purpleColor,
-                                                decoration:
-                                                    TextDecoration.underline,
-                                              ),
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () {
-                                              setState(() {
-                                                changePassword = true;
-                                              });
-                                            },
-                                        ),
-                                      ),
+                                      // RichText(
+                                      //   text: TextSpan(
+                                      //     text: 'Edit',
+                                      //     style: Theme.of(context)
+                                      //         .textTheme
+                                      //         .bodyText1
+                                      //         .copyWith(
+                                      //           color: LColors.purpleColor,
+                                      //           decoration:
+                                      //               TextDecoration.underline,
+                                      //         ),
+                                      //     recognizer: TapGestureRecognizer()
+                                      //       ..onTap = () {
+                                      //         setState(() {
+                                      //           changePassword = true;
+                                      //         });
+                                      //       },
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                 ],

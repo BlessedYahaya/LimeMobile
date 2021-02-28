@@ -55,10 +55,10 @@ class AuthServiceImpl extends AuthService {
           res.body.length == 0 || res.body == null
               ? new Map().toString()
               : res.body);
-      print(map);
       if (res.statusCode == HttpStatus.ok) {
         if (map["token"] is String) {
           await App.setToken(map['token']); // save the user token
+          await App.setUname(user['username']); // save username
           map['status'] = "success";
           return (map);
         }
@@ -67,7 +67,7 @@ class AuthServiceImpl extends AuthService {
         return map;
       } else {
         map['status'] = "error";
-        map['message'] = "Error: ${res.statusCode}";
+        map['message'] = "(${res.statusCode}): ${map['message'] ?? ''}";
         return map;
       }
     } catch (e, t) {

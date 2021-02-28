@@ -56,24 +56,24 @@ class _ProjectsFragmentState extends State<ProjectsFragment> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          RichText(
-                            text: TextSpan(
-                              text:
-                                  'Delete${selectedProjects.length == 0 ? '' : selectedProjects.length == 1 ? ' Project' : ' Projects'}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .copyWith(
-                                    color: Theme.of(context).errorColor,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  // TODO: show some dialog
-                                  print('TODO');
-                                },
-                            ),
-                          ),
+                          // RichText(
+                          //   text: TextSpan(
+                          //     text:
+                          //         'Delete${selectedProjects.length == 0 ? '' : selectedProjects.length == 1 ? ' Project' : ' Projects'}',
+                          //     style: Theme.of(context)
+                          //         .textTheme
+                          //         .bodyText1
+                          //         .copyWith(
+                          //           color: Theme.of(context).errorColor,
+                          //           decoration: TextDecoration.underline,
+                          //         ),
+                          //     recognizer: TapGestureRecognizer()
+                          //       ..onTap = () {
+                          //         // TODO: show some dialog
+                          //         print('TODO');
+                          //       },
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

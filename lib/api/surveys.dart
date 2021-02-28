@@ -46,6 +46,25 @@ class SurveyServiceImpt extends SurveyService {
       return SubmitSResponse.fromJson(map);
     }
   }
+
+  Future<Map<String, dynamic>> getTotalResponse() async {
+    try {
+      final res = await client.get("${API.BASEURL}/total",
+          headers: await API.getHeaders());
+      Map<String, dynamic> map = json.decode(res.body);
+      if (res.statusCode == HttpStatus.ok) {
+        map['status'] = "success";
+        return (map);
+      } else {
+        map['status'] = "error";
+        map['message'] = "An unknown error occured";
+        return (map);
+      }
+    } catch (e, t) {
+      Map<String, Object> map = handleError(e, t);
+      return (map);
+    }
+  }
 }
 
 abstract class SurveyService with API {

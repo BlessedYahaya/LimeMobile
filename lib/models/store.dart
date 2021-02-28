@@ -27,7 +27,7 @@ class StoreModel extends ChangeNotifier {
     _authenticated = false;
     _processing = false;
 
-    user = UserModel.zero;
+    getUser();
     env = {};
   }
 
@@ -54,6 +54,7 @@ class StoreModel extends ChangeNotifier {
   // app-wide data stores
   List<ProjectModel> _projects;
   List<SurveyModel> _surveys;
+  int _totalResponse;
 
   /// get all user projects
   void getProjects(BuildContext context) async {
@@ -82,11 +83,14 @@ class StoreModel extends ChangeNotifier {
     processing = true;
     try {
       SurveyResponse response = await surveyServiceImpt.getAllSurveys();
+      Map<String, dynamic> totalRes =
+          await surveyServiceImpt.getTotalResponse();
       if (response.error == 'error') {
         // handle error, show a toast or something
         Toast.show('ERROR ${response.message ?? ''}', context,
             backgroundColor: Colors.red, backgroundRadius: 50);
       } else {
+        if (totalRes['status'] == 'success') totalResponse = totalRes['data'];
         response.surveys.forEach((survey) {
           survey.questions = survey.questions.map((question) {
             if (question['options'] is List<dynamic>) {
@@ -117,7 +121,6 @@ class StoreModel extends ChangeNotifier {
               questionModel.id = question['id'];
               questionModel.range = question['options']['range'];
               questionModel.label = question['options']['label'];
-              print(question);
               return questionModel;
             }
             return OpenQuestionModel.fromJson(question);
@@ -210,6 +213,17 @@ class StoreModel extends ChangeNotifier {
   }
 
   bool get isProcessing => _processing;
+  int get totalResponse => _totalResponse;
+  set totalResponse(int value) {
+    this._totalResponse = value;
+    notifyListeners();
+  }
+
+  void getUser() async {
+    user = UserModel.zero;
+    user.firstName = await App.getUname();
+    notifyListeners();
+  }
 
   set darkMode(bool value) {
     if (_darkMode != value) {

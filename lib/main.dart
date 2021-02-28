@@ -101,6 +101,16 @@ class App extends StatefulWidget {
     return await prefs.setString('token', token);
   }
 
+  static Future<String> getUname() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString('uname') ?? "";
+  }
+
+  static Future<bool> setUname(String uname) async {
+    var prefs = await SharedPreferences.getInstance();
+    return await prefs.setString('uname', uname);
+  }
+
   static Future pushNamed(String name, {Object arguments}) {
     return navigatorKey.currentState.pushNamed(name, arguments: arguments);
   }

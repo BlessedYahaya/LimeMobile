@@ -15,71 +15,69 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     StoreModel store = Provider.of<StoreModel>(context);
-    return BusyWidget(
-      busy: store.isProcessing,
-      msg: "Please wait...",
-      child: Scaffold(
-        body: SingleChildScrollView(
-            child: Form(
-          key: formKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                        padding: EdgeInsets.only(bottom: 36.0),
-                        child: Text('WELCOME BACK',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 21))),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            labelText: "Username",
-                            hintText: 'Abc',
-                            fillColor: Colors.grey[200]),
-                        validator: (value) {
-                          return validateRequired(value, 'Username');
-                        },
-                        onSaved: (value) {
-                          loginMap['username'] = value;
-                        },
-                      ),
+    return Scaffold(
+      body: SingleChildScrollView(
+          child: Form(
+        key: formKey,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                      padding: EdgeInsets.only(bottom: 36.0),
+                      child: Text('WELCOME BACK',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 21))),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          labelText: "Username",
+                          hintText: 'Abc',
+                          fillColor: Colors.grey[200]),
+                      validator: (value) {
+                        return validateRequired(value, 'Username');
+                      },
+                      onSaved: (value) {
+                        loginMap['username'] = value;
+                      },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: TextFormField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                            labelText: "Password",
-                            hintText: '******',
-                            fillColor: Colors.grey[200]),
-                        validator: validatePassword,
-                        onSaved: (value) {
-                          loginMap['password'] = value;
-                        },
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: TextFormField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          labelText: "Password",
+                          hintText: '******',
+                          fillColor: Colors.grey[200]),
+                      validator: validatePassword,
+                      onSaved: (value) {
+                        loginMap['password'] = value;
+                      },
                     ),
-                    Padding(
-                        padding: EdgeInsets.only(top: 16.0),
-                        child: RaisedButton(
-                            onPressed: () {
-                              if (formKey.currentState.validate()) {
-                                store.login(context, loginMap);
-                              }
-                            },
-                            child: Text('LOGIN',
-                                style: TextStyle(color: Colors.white))))
-                  ]),
-            ),
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(top: 16.0),
+                      child: RaisedButton(
+                          onPressed: () {
+                            if (formKey.currentState.validate()) {
+                              formKey.currentState.save();
+                              store.login(context, loginMap);
+                            }
+                          },
+                          child: Text(
+                              store.isProcessing ? "Please wait..." : "LOGIN",
+                              style: TextStyle(color: Colors.white))))
+                ]),
           ),
-        )),
-      ),
+        ),
+      )),
     );
   }
 }

@@ -47,7 +47,7 @@ class _HomeFragmentState extends State<HomeFragment> {
         ],
       ),
       body: (store.projects) == null && store.isProcessing
-      // TODO: handle error case
+          // TODO: handle error case
           ? Container()
           : CustomScrollView(
               physics: AlwaysScrollableScrollPhysics(
@@ -95,11 +95,11 @@ class _HomeFragmentState extends State<HomeFragment> {
                             children: <Widget>[
                               Expanded(
                                 child: LButtonCard(
-                                  label: 'New Responses',
+                                  label: 'Total Responses',
                                   context: context,
                                   color: LColors.primaryLightColor,
                                   trailing: Text(
-                                    '20',
+                                    '${store.totalResponse ?? "0"}',
                                     style: TextStyle(
                                       fontFamily: Strings.app.font,
                                       fontWeight: FontWeight.w700,
