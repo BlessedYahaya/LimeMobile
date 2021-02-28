@@ -261,6 +261,7 @@ class StoreModel extends ChangeNotifier {
 
   Future<void> logout() async {
     await App.setToken("");
+    await App.setUname("");
     Future.delayed(Duration(milliseconds: 1000), () {
       App.pushPageRoute(LoginView());
     });

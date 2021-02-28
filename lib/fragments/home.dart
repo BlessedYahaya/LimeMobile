@@ -42,6 +42,7 @@ class _HomeFragmentState extends State<HomeFragment> {
     return LScaffold(
       appBar: AppBar(
         title: Text('Home'),
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           IconButton(icon: Icon(Icons.search), onPressed: () {})
         ],
