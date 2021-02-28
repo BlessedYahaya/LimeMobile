@@ -113,8 +113,11 @@ class _HomeFragmentState extends State<HomeFragment> {
                               ),
                               Expanded(
                                 child: LButtonCard(
-                                  label: 'Add live response',
+                                  label: 'Add new response',
                                   context: context,
+                                  onTap: () {
+                                    widget.onNavigate(2);
+                                  },
                                 ),
                               ),
                             ],
