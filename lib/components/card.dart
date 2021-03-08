@@ -165,6 +165,7 @@ class LButtonCard extends LCard {
     Color textColor,
     Widget leading,
     Widget trailing,
+    bool useSmallText = false,
     String label,
     RoundedRectangleBorder shape = const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(const Radius.circular(10)),
@@ -192,6 +193,7 @@ class LButtonCard extends LCard {
                         '$label',
                         style: Theme.of(context).textTheme.subtitle1.copyWith(
                               fontFamily: Strings.app.font,
+                              fontSize: useSmallText ? 12 : 16,
                               fontWeight: FontWeight.w400,
                               color: textColor,
                             ),

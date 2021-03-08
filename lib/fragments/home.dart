@@ -98,6 +98,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                 child: LButtonCard(
                                   label: 'Total Responses',
                                   context: context,
+                                  useSmallText: true,
                                   color: LColors.primaryLightColor,
                                   trailing: Text(
                                     '${store.totalResponse ?? "0"}',
