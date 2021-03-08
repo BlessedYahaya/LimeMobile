@@ -73,23 +73,23 @@ class _ProjectViewState extends State<ProjectView>
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
-                                RichText(
-                                  text: TextSpan(
-                                    text: 'Delete Project',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .copyWith(
-                                          color: Theme.of(context).errorColor,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        // TODO: show some dialog
-                                        print('TODO');
-                                      },
-                                  ),
-                                ),
+                                // RichText(
+                                //   text: TextSpan(
+                                //     text: 'Delete Project',
+                                //     style: Theme.of(context)
+                                //         .textTheme
+                                //         .bodyText1
+                                //         .copyWith(
+                                //           color: Theme.of(context).errorColor,
+                                //           decoration: TextDecoration.underline,
+                                //         ),
+                                //     recognizer: TapGestureRecognizer()
+                                //       ..onTap = () {
+                                //         // TODO: show some dialog
+                                //         print('TODO');
+                                //       },
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
@@ -139,23 +139,23 @@ class _ProjectViewState extends State<ProjectView>
                                       .subtitle1
                                       .copyWith(fontWeight: FontWeight.bold),
                                 ),
-                                RichText(
-                                  text: TextSpan(
-                                    text: 'Edit Details',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .copyWith(
-                                          color: LColors.purpleColor,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        // TODO: bind with UI
-                                        print('TODO');
-                                      },
-                                  ),
-                                ),
+                                // RichText(
+                                //   text: TextSpan(
+                                //     text: 'Edit Details',
+                                //     style: Theme.of(context)
+                                //         .textTheme
+                                //         .bodyText1
+                                //         .copyWith(
+                                //           color: LColors.purpleColor,
+                                //           decoration: TextDecoration.underline,
+                                //         ),
+                                //     recognizer: TapGestureRecognizer()
+                                //       ..onTap = () {
+                                //         // TODO: bind with UI
+                                //         print('TODO');
+                                //       },
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),

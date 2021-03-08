@@ -131,23 +131,23 @@ class _SurveyViewState extends State<SurveyView> with TickerProviderStateMixin {
                                       .subtitle1
                                       .copyWith(fontWeight: FontWeight.bold),
                                 ),
-                                RichText(
-                                  text: TextSpan(
-                                    text: 'Edit Details',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .copyWith(
-                                          color: LColors.purpleColor,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        // TODO: bind with UI
-                                        print('TODO');
-                                      },
-                                  ),
-                                ),
+                                // RichText(
+                                //   text: TextSpan(
+                                //     text: 'Edit Details',
+                                //     style: Theme.of(context)
+                                //         .textTheme
+                                //         .bodyText1
+                                //         .copyWith(
+                                //           color: LColors.purpleColor,
+                                //           decoration: TextDecoration.underline,
+                                //         ),
+                                //     recognizer: TapGestureRecognizer()
+                                //       ..onTap = () {
+                                //         // TODO: bind with UI
+                                //         print('TODO');
+                                //       },
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
